@@ -16,6 +16,8 @@ target 'RefocusCenterMobile' do
 
   pod 'RNSVG', :path => '../node_modules/react-native-svg'
 
+  pod 'RNTextGradientView', :path => '../node_modules/react-native-text-gradient'
+
   target 'RefocusCenterMobileTests' do
     inherit! :complete
     # Pods for testing
