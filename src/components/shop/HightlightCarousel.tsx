@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { View, Text, Dimensions, StyleSheet, Image, LayoutChangeEvent } from "react-native";
 import { SwiperFlatList } from 'react-native-swiper-flatlist';
-import { HighlightScreen } from "../../types/interfaces";
+import { HighlightScreen } from "../../types/domain/interfaces";
 const { width } = Dimensions.get('window');
 
 const MARGIN_HORIZONTAL = 10;

@@ -1,7 +1,7 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import HomeShopRoutes from './home-shop.routes';
-import Home from '../pages/home/Home';
+import HomeShopRoutes from './ShopRoutes';
+import Home from '../pages/app/AppHome';
 import { NavigationContainer } from '@react-navigation/native';
 
 const AppStack = createStackNavigator();

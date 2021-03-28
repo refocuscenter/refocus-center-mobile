@@ -1,4 +1,4 @@
-import { User } from "../types/interfaces";
+import { User } from "../types/domain/interfaces";
 import { randomInt } from "../utils/random";
 import { produtosMercadinho } from "./productsCategories";
 import { senhorDosPasteisStore } from "./store";

@@ -1,15 +1,64 @@
 import React from "react";
-import { Text, View } from "react-native";
-import CardAccount from "./card-account/CardAccount";
+import { StyleSheet, Text, View } from "react-native";
+import CardAccount from "../../containers/app/CardAccount";
 import IconIonicons from 'react-native-vector-icons/Ionicons';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
-import style from './HomeShop.style';
-import CardTransaction from './card-transaction/CardTransaction';
+import CardTransaction from '../../containers/shop/CardTransaction';
 import { Button } from "react-native-paper";
-import { UnitStore } from "../../types/interfaces";
+import { UnitStore } from "../../types/domain/interfaces";
 import { ScrollView } from "react-native-gesture-handler";
 
-export default function HomeShop({route, navigation}: any) {
+const style = StyleSheet.create({
+    screen: {
+        flex: 1
+    },
+    menu:{
+        marginHorizontal: 20,
+        marginTop: 10,
+        flex: 0.12,
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    },
+    optionMenu:{
+        flex: 1,
+        padding: 10,
+        alignContent: 'center',
+        alignSelf: 'center',
+        alignItems: 'center'
+    },
+    history:{
+        flex: 0.5,
+        marginHorizontal: 20,
+        marginTop: 10,
+        padding: 10,
+    },
+    cardAccount:{
+        flex: 0.43
+    },
+    topView:{
+        flexWrap: 'wrap',
+        alignItems: 'center',
+        flexDirection:'row',
+        marginTop: 50,
+        marginHorizontal: 20
+    },
+    exitView: {
+        flex: 1,
+        alignItems: "flex-end",
+        textAlign: 'right'
+    },
+    exitButton: {
+        borderRadius: 50,   
+    },
+    exitButtonLabel: {
+        color: "#fff",
+    },
+    textDisplayName: {
+        marginHorizontal: 15
+    },
+})
+
+export default function ShopHome({route, navigation}: any) {
     const unitStore: UnitStore  = route.params.unitStore;
     return (
         <View style={style.screen}>

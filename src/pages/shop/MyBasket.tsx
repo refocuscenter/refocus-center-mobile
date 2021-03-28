@@ -1,9 +1,9 @@
 import React from "react";
 import { View, Text, ScrollView, StyleSheet } from "react-native";
 import { TextInput, Button, Avatar } from "react-native-paper"
-import { BasketProductList } from "../../components/BasketProductList";
+import { BasketProductList } from "../../containers/shop/BasketProductList";
 import { theme } from "../../theme";
-import { Basket, UnitStore } from "../../types/interfaces";
+import { Basket, UnitStore } from "../../types/domain/interfaces";
 import { user } from "../../mocks/user"
 import { unitStores } from "../../mocks/store";
 
@@ -38,7 +38,7 @@ const style = StyleSheet.create({
     }
 })
 
-interface MyBasketProps {
+export interface MyBasketProps {
     //unitStore: UnitStore,
     route: any,
     [key: string]: any

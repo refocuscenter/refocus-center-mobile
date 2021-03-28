@@ -3,11 +3,46 @@ import { View, Text, Image, StyleSheet } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { Avatar, Button, Chip, TextInput } from "react-native-paper";
 import { theme } from "../../theme";
-import { Product, ProductCategory, User } from "../../types/interfaces";
+import { Product, ProductCategory, User } from "../../types/domain/interfaces";
 import IconMaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import style from "./ProductList.style";
 import { produtosMercadinho } from "../../mocks/productsCategories";
 import {widthPercentageToDP as wd, heightPercentageToDP as hg} from "react-native-responsive-screen"
+
+
+const style = StyleSheet.create({
+  inlineView: {
+      flexWrap: "wrap",
+      alignItems: "flex-start",
+      flexDirection: "row",
+  },
+  mainView: {
+      marginTop: 40,
+      marginHorizontal: 15
+  },
+  topView: {
+      justifyContent: "space-between"
+  },
+  title: {
+      fontSize: 18,
+      alignSelf: "center"
+  },
+  roundButton: {
+      borderRadius: 50      
+  },
+  textButton: {
+      color: "#fff"
+  },
+  searchInput: {
+      marginTop: 10
+  },
+  tagsContainer: {
+      marginVertical: 10,
+      marginBottom: 15
+  },
+  listProductView: {
+      marginBottom: 190
+  }
+})
 
 interface ProductListProps {
   [key: string]: any;

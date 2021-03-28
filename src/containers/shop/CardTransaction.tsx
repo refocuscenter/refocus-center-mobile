@@ -1,12 +1,39 @@
 import React from "react";
-import { View, Text } from "react-native";
-import style from './CardTransaction.style';
+import { View, Text, StyleSheet } from "react-native";
 import IconEntypo from 'react-native-vector-icons/Entypo';
-import { Extract } from "../../../types/interfaces";
+import { Extract } from "../../types/domain/interfaces";
 import IconIonicons from 'react-native-vector-icons/Ionicons';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import moment from 'moment';
 import 'moment/locale/pt-br';
+
+const style = StyleSheet.create({
+    content:{
+        flex: 1
+    },
+    card: {
+        flex: 1,
+        marginTop: 20,
+        borderColor: '#CCCC',
+        borderRadius: 10,
+        borderWidth: 1,
+        padding: 10,
+        flexDirection: 'row'
+    },
+    icon:{
+        marginRight: 20,
+        marginLeft: 10,
+        justifyContent: 'center'
+    },
+    cardContent:{
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    },
+    title: {
+        fontSize: 12
+    }
+})
 
 interface CardTransactionProps {
     value: Extract,

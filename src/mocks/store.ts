@@ -1,4 +1,4 @@
-import { Store, UnitStore, Extract } from "../types/interfaces"
+import { Store, UnitStore, Extract } from "../types/domain/interfaces"
 import { everyDay19hTo23h } from "./openingInterval";
 
 const hortFruitStore: Store = {

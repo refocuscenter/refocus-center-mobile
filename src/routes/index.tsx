@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
-import AuthContext from '../contexts/auth';
-import AppRoutes from './app.routes';
-import AuthRoutes from './auth.routes';
+import AuthContext from '../contexts/Auth';
+import AppRoutes from './AppRoutes';
+import AuthRoutes from './AuthRoutes';
 
 const Routes: React.FC = () => {
     const { signed } = useContext(AuthContext);

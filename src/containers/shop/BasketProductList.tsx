@@ -2,8 +2,8 @@ import React, { useState } from "react"
 import { View, Text, ScrollView, StyleSheet } from "react-native";
 import Icon from 'react-native-vector-icons/Entypo';
 import { TextInput, Button, Avatar, IconButton } from "react-native-paper"
-import { Basket } from "../types/interfaces";
-import { theme } from "../theme";
+import { Basket } from "../../types/domain/interfaces";
+import { theme } from "../../theme";
 
 const style = StyleSheet.create({
     mainView: {

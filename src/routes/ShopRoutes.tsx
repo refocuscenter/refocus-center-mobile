@@ -1,22 +1,22 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import HomeShop from './../pages/home-shop/HomeShop';
-import MyBasket from './../pages/my-basket/MyBasket';
-import ProductList from './../pages/product-list/ProductList';
-import Help from './../pages/help/Help';
+import HomeShop from '../pages/shop/ShopHome';
+import MyBasket from '../pages/shop/MyBasket';
+import ProductList from '../containers/shop/ProductList';
+import Help from '../pages/shop/Help';
 import IconIonicons from 'react-native-vector-icons/Ionicons';
 import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import IconAnt from 'react-native-vector-icons/AntDesign';
 import IconFeather from 'react-native-vector-icons/Feather';
-import IndexRoutes from './../routes/index';
+import IndexRoutes from './index';
 import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
 
 const Tab = createBottomTabNavigator();
 const AppStack = createStackNavigator();
 
-export default function HomeShopRoutes(props: any) {
+export default function ShopRoutes(props: any) {
   return (
     <NavigationContainer independent={true}>
       <Tab.Navigator

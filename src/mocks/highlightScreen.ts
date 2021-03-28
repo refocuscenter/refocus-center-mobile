@@ -1,4 +1,4 @@
-import { HighlightScreen } from "../types/interfaces";
+import { HighlightScreen } from "../types/domain/interfaces";
 import { hortFruitBelfordRoxo, unitStores } from "./store";
 
 export const highlightScreen: HighlightScreen[] = [

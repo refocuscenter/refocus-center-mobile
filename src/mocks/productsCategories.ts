@@ -1,4 +1,4 @@
-import { ProductCategory } from "../types/interfaces";
+import { ProductCategory } from "../types/domain/interfaces";
 
 //In vscode, use ALT+Z to remove long lines break line
 

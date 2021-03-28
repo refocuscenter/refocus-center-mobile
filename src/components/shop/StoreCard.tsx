@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Avatar } from "react-native-paper";
 
-import { OpeningInterval, UnitStore } from "../../types/interfaces";
+import { OpeningInterval, UnitStore } from "../../types/domain/interfaces";
 
 import IconMaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { theme } from "../../theme";

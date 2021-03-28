@@ -1,13 +1,12 @@
 import React, {useState, useContext} from 'react';
-import {View, Text, Image} from 'react-native';
+import {View, Text, Image, StyleSheet} from 'react-native';
 import {TextInput, Button} from 'react-native-paper';
-import {theme, colors} from '../../theme';
-import style from './Login.style';
-import AuthContext from '../../contexts/auth';
+import {theme, colors, fonts} from '../theme';
+import AuthContext from '../contexts/Auth';
 import {LinearTextGradient} from 'react-native-text-gradient';
 
-import LogoSVG from '../../assets/images/refocus-center-logo.svg';
-import GoogleSVG from '../../assets/images/icons/google-icon.svg';
+import LogoSVG from '../assets/images/refocus-center-logo.svg';
+import GoogleSVG from '../assets/images/icons/google-icon.svg';
 
 import {
   widthPercentageToDP as wd,
@@ -15,6 +14,53 @@ import {
 } from 'react-native-responsive-screen';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {ScrollView} from 'react-native-gesture-handler';
+
+export const style = StyleSheet.create({
+  mainView: {
+    marginTop: 40,
+    marginBottom: 20,
+    marginLeft: 20,
+    marginRight: 20,
+    textAlign: "center"
+  },
+  cestouView: {
+    marginVertical: 30
+  },
+  centerView: {
+    alignItems: 'center'
+  },
+  flexView: {
+    flexWrap: 'wrap', 
+    alignItems: 'flex-start',
+    flexDirection:'row'
+  },
+  textInput: {
+    marginBottom: 10
+  },
+  button: {
+    marginTop: 15
+  },
+  buttonContent: {
+    paddingTop: 8,
+    paddingBottom: 8,
+  },
+  buttonLabel: {
+    color: "#fff"
+  },
+  text: {
+    marginVertical: 10
+  },
+  textBold: {
+    fontWeight: 'bold'
+  },
+  socialMediaView: {
+    marginTop: 30
+  },
+  socialMediaIcon: {
+    marginHorizontal: 5,
+    marginVertical: 10
+  }
+});
 
 export default function Login() {
   const {handleLogin} = useContext(AuthContext);
@@ -27,6 +73,7 @@ export default function Login() {
   };
 
   const {MainDegrade60: md60} = colors;
+  const {mainFontFamily:font} = fonts;
 
   return (
     <SafeAreaView>
@@ -36,7 +83,9 @@ export default function Login() {
           colors={md60.colors}
           start={md60.start}
           end={md60.end}>
-          <Text style={{fontFamily: 'Poppins-Regular', fontSize: 80}}>Refocus Center</Text>
+          <Text style={{fontFamily: font, fontSize: 80}}>
+            Refocus Center
+          </Text>
         </LinearTextGradient>
 
         <View style={[style.centerView, style.cestouView]}>

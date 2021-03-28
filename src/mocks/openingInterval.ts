@@ -1,4 +1,4 @@
-import { OpeningInterval, WeekOpeningIntervals } from "../types/interfaces";
+import { OpeningInterval, WeekOpeningIntervals } from "../types/domain/interfaces";
 
 const day19hTo23h: OpeningInterval = {
     openingHour: "19:00",
