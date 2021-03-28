@@ -5,9 +5,8 @@ import { theme } from "../../theme";
 import style from "./Login.style";
 import AuthContext from '../../contexts/auth';
 
-const googleIcon = require("../../assets/google-32.png");
-const facebookIcon = require("../../assets/facebook-32.png");
-const cestouLogo = require("../../assets/cestou-logo.png");
+import LogoSVG from "../../assets/images/refocus-center-logo.svg";
+import GoogleSVG from "../../assets/images/icons/google-icon.svg"
 
 import {widthPercentageToDP as wd, heightPercentageToDP as hg} from "react-native-responsive-screen"
 
@@ -24,7 +23,7 @@ export default function Login() {
   return (
       <View style={style.mainView}>
         <View style={[style.centerView, style.cestouView]}>
-          <Image style={{width: hg(45), height: hg(32.38)}} source={cestouLogo} />
+          <LogoSVG width={hg(45)} height={hg(32.38)}></LogoSVG>
         </View>
 
         <TextInput
@@ -55,8 +54,7 @@ export default function Login() {
           <Text style={style.text}>Ou entre com</Text>
 
           <View style={style.flexView}>
-            <Image style={style.socialMediaIcon} source={googleIcon} />
-            <Image style={style.socialMediaIcon} source={facebookIcon} />
+            <GoogleSVG style={style.socialMediaIcon}></GoogleSVG>
           </View>
 
           <Text style={style.text}>
