@@ -1,9 +1,9 @@
-import React, {useState, useContext} from 'react';
-import {View, Text, Image, StyleSheet} from 'react-native';
-import {TextInput, Button} from 'react-native-paper';
-import {theme, colors, fonts} from '../theme';
+import React, { useState, useContext } from 'react';
+import { View, Text, Image, StyleSheet } from 'react-native';
+import { TextInput, Button } from 'react-native-paper';
+import { theme, colors, fonts } from '../theme';
 import AuthContext from '../contexts/Auth';
-import {LinearTextGradient} from 'react-native-text-gradient';
+import { LinearTextGradient } from 'react-native-text-gradient';
 
 import LogoSVG from '../assets/images/refocus-center-logo.svg';
 import GoogleSVG from '../assets/images/icons/google-icon.svg';
@@ -12,58 +12,59 @@ import {
   widthPercentageToDP as wd,
   heightPercentageToDP as hg,
 } from 'react-native-responsive-screen';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {ScrollView} from 'react-native-gesture-handler';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { ScrollView } from 'react-native-gesture-handler';
+import { TextGradient } from '../components/TextGradient';
+import { ButtonGradient } from '../components/ButtonGradient';
 
 export const style = StyleSheet.create({
   mainView: {
-    marginTop: 40,
     marginBottom: 20,
     marginLeft: 20,
     marginRight: 20,
-    textAlign: "center"
+    textAlign: 'center',
   },
-  cestouView: {
-    marginVertical: 30
+  logoView: {
+    marginVertical: 30,
   },
   centerView: {
-    alignItems: 'center'
+    alignItems: 'center',
   },
   flexView: {
-    flexWrap: 'wrap', 
+    flexWrap: 'wrap',
     alignItems: 'flex-start',
-    flexDirection:'row'
+    flexDirection: 'row',
   },
   textInput: {
-    marginBottom: 10
+    marginBottom: 10,
   },
   button: {
-    marginTop: 15
+    marginTop: 10,
   },
   buttonContent: {
     paddingTop: 8,
     paddingBottom: 8,
   },
   buttonLabel: {
-    color: "#fff"
+    color: '#fff',
   },
   text: {
-    marginVertical: 10
+    marginVertical: 10,
   },
   textBold: {
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   socialMediaView: {
-    marginTop: 30
+    marginTop: 20,
   },
   socialMediaIcon: {
     marginHorizontal: 5,
-    marginVertical: 10
-  }
+    marginVertical: 10,
+  },
 });
 
 export default function Login() {
-  const {handleLogin} = useContext(AuthContext);
+  const { handleLogin } = useContext(AuthContext);
   const [credentials, setCredentials] = useState({
     email: '',
     password: '',
@@ -72,23 +73,13 @@ export default function Login() {
     handleLogin(credentials);
   };
 
-  const {MainDegrade60: md60} = colors;
-  const {mainFontFamily:font} = fonts;
-
   return (
     <SafeAreaView>
-      <ScrollView style={style.mainView}>
-        <LinearTextGradient
-          locations={md60.locations}
-          colors={md60.colors}
-          start={md60.start}
-          end={md60.end}>
-          <Text style={{fontFamily: font, fontSize: 80}}>
-            Refocus Center
-          </Text>
-        </LinearTextGradient>
-
-        <View style={[style.centerView, style.cestouView]}>
+      <ScrollView
+        style={style.mainView}
+        showsVerticalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false}>
+        <View style={[style.centerView, style.logoView]}>
           <LogoSVG width={hg(45)} height={hg(32.38)}></LogoSVG>
         </View>
         <TextInput
@@ -104,13 +95,15 @@ export default function Login() {
           secureTextEntry={true}
           placeholder="Sua senha"
         />
-        <Button
-          style={style.button}
-          labelStyle={style.buttonLabel}
-          mode="contained"
-          onPress={login}>
+
+        <ButtonGradient>
           Entrar
-        </Button>
+        </ButtonGradient>
+
+        <ButtonGradient style={style.button} type="secondary">
+          Cadastrar
+        </ButtonGradient>
+
         <View style={[style.socialMediaView, style.centerView]}>
           <Text style={style.text}>Ou entre com</Text>
 
@@ -118,10 +111,6 @@ export default function Login() {
             <GoogleSVG style={style.socialMediaIcon}></GoogleSVG>
           </View>
 
-          <Text style={style.text}>
-            Ainda não possui conta?{' '}
-            <Text style={style.textBold}>Crie agora</Text>
-          </Text>
         </View>
       </ScrollView>
     </SafeAreaView>

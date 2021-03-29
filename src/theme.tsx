@@ -1,5 +1,6 @@
-import {DefaultTheme} from 'react-native-paper';
+import { DefaultTheme } from 'react-native-paper';
 import LinearGradient from 'react-native-linear-gradient';
+import { Gradient } from './types/app/theme';
 
 type PaperTheme = ReactNativePaper.Theme;
 
@@ -23,18 +24,6 @@ export const theme: PaperTheme = {
   },
 };
 
-interface Point {
-  x: number;
-  y: number;
-}
-
-interface Gradient {
-  locations: number[];
-  colors: string[];
-  start: Point;
-  end: Point;
-}
-
 export const measures = {
   prevalentMargin: 5
 }
@@ -49,14 +38,14 @@ export const colors = {
   MainDegrade100: {
     locations: [0, 1],
     colors: ['#DA5AFA', '#3570EC'],
-    start: {x: 0, y: 0},
-    end: {x: 1, y: 1},
+    start: { x: 0, y: 0 },
+    end: { x: 1, y: 1 },
   } as Gradient,
   MainDegrade60: {
     locations: [0, 1],
     colors: ['rgba(218, 90, 250, 0.6)', 'rgba(53, 112, 236, 0.6)'],
-    start: {x: 0, y: 0},
-    end: {x: 1, y: 1},
+    start: { x: 0, y: 0 },
+    end: { x: 1, y: 1 },
   } as Gradient,
 
   lightBlue92: '#92B2F5',
@@ -74,3 +63,7 @@ export const colors = {
   green1C: '#1CD69D',
   redFF: '#FF9BB3',
 };
+
+export const actions = {
+  activeOpacity: 0.6
+}
