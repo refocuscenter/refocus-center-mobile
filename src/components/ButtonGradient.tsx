@@ -1,4 +1,4 @@
-import { StyleProp, StyleSheet, Text, TextStyle, TouchableOpacity, View, ViewStyle } from 'react-native';
+import { StyleProp, StyleSheet, Text, TextStyle, TouchableOpacity, TouchableOpacityProps, View, ViewProps, ViewStyle } from 'react-native';
 import { colors, fonts, actions } from '../theme';
 import { TextGradient, TextGradientProps } from './TextGradient';
 import React from 'react';
@@ -6,18 +6,17 @@ import { ViewGradient } from './ViewGradient';
 
 type ButtonGradientType = 'primary' | 'secondary';
 
-interface ButtonGradientProps {
-	children?: any;
+interface ButtonGradientProps extends ViewProps {
 	type?: ButtonGradientType;
-	style?: StyleProp<ViewStyle>;
 	textStyle?: StyleProp<TextStyle>;
 	containerStyle?: StyleProp<ViewStyle>;
-	onPress?: Function;
 
 	/**
 	 * Only for type = "secondary"
 	 */
 	borderWidth?: number;
+
+	[key: string]: any;
 }
 
 const PADDING_VERTICAL = 8
@@ -64,35 +63,40 @@ export function ButtonGradient(props: ButtonGradientProps) {
 	);
 }
 
-function PrimaryButton({ children, style: styleProp, textStyle, containerStyle, onPress }: ButtonGradientProps) {
+function PrimaryButton(props: ButtonGradientProps) {
+	const { children, textStyle, containerStyle } = props
 
-	return <TouchableOpacity
-		style={styleProp}
-		activeOpacity={actions.activeOpacity}
-		onPress={() => onPress}>
-		<ViewGradient style={[style.primary.container, containerStyle]}>
-			<Text style={[style.primary.text, textStyle]}>{children}</Text>
-		</ViewGradient>
-	</TouchableOpacity>
+	return <View {...props}>
+		<TouchableOpacity
+			activeOpacity={actions.activeOpacity}
+		>
+			<ViewGradient style={[style.primary.container, containerStyle]}>
+				<Text style={[style.primary.text, textStyle]}>{children}</Text>
+			</ViewGradient>
+		</TouchableOpacity>
+	</View>
 
 }
 
-function SecondaryButton({ children, style: styleProp, textStyle, containerStyle, onPress, borderWidth = 1 }: ButtonGradientProps) {
+function SecondaryButton(props: ButtonGradientProps) {
 
-	return <TouchableOpacity
-		style={styleProp}
-		activeOpacity={actions.activeOpacity}
-		onPress={() => onPress}>
-		<ViewGradient style={
-			[
-				style.secondary.border,
-				(borderWidth ?
-					{ padding: borderWidth, borderRadius: BORDER_RADIUS + borderWidth }
-					: undefined)
-			]}>
-			<View style={[style.secondary.container, containerStyle]}>
-				<TextGradient style={[style.secondary.text, textStyle]}>{children}</TextGradient>
-			</View>
-		</ViewGradient>
-	</TouchableOpacity>
+	const { children, textStyle, containerStyle, borderWidth = 1 } = props
+
+	return <View {...props}>
+		<TouchableOpacity
+			activeOpacity={actions.activeOpacity}
+		>
+			<ViewGradient style={
+				[
+					style.secondary.border,
+					(borderWidth ?
+						{ padding: borderWidth, borderRadius: BORDER_RADIUS + borderWidth }
+						: undefined)
+				]}>
+				<View style={[style.secondary.container, containerStyle]}>
+					<TextGradient style={[style.secondary.text, textStyle]}>{children}</TextGradient>
+				</View>
+			</ViewGradient>
+		</TouchableOpacity>
+	</View>
 }
