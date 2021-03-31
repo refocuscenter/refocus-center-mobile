@@ -5,7 +5,7 @@ import { Avatar } from "react-native-paper";
 import { OpeningInterval, UnitStore } from "../../types/domain/interfaces";
 
 import IconMaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import { theme } from "../../theme";
+import { paperTheme } from "../../theme";
 
 interface StoreCardProps {
   unitStore: UnitStore,
@@ -21,7 +21,7 @@ const styleStoreCard = StyleSheet.create({
     paddingVertical: 15,
     marginVertical: 5,
 
-    borderColor: theme.colors.placeholder,
+    borderColor: paperTheme.colors.placeholder,
     borderWidth: StyleSheet.hairlineWidth,
     borderRadius: 5,
   },
@@ -35,7 +35,7 @@ const styleStoreCard = StyleSheet.create({
     flexDirection: "row",
   },
   statusText: {
-    color: theme.colors.primary,
+    color: paperTheme.colors.primary,
   },
   hourText: {},
   basketIcon: {
@@ -76,7 +76,7 @@ export function StoreCard(props: StoreCardProps) {
         style={styleStoreCard.basketIcon}
         size={32}
         name="basket-outline"
-        color={theme.colors.primary}
+        color={paperTheme.colors.primary}
       />
     </View>
   );

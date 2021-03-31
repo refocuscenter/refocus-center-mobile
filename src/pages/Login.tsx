@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
-import { theme, colors, fonts } from '../theme';
+import { paperTheme, colors, fonts } from '../theme';
 import AuthContext from '../contexts/Auth';
 import { LinearTextGradient } from 'react-native-text-gradient';
 
@@ -83,20 +83,20 @@ export default function Login() {
           <LogoSVG width={hg(45)} height={hg(32.38)}></LogoSVG>
         </View>
         <TextInput
-          placeholderTextColor={theme.colors.text}
+          placeholderTextColor={paperTheme.colors.text}
           style={style.textInput}
           mode="outlined"
           placeholder="Seu email"
         />
         <TextInput
-          placeholderTextColor={theme.colors.text}
+          placeholderTextColor={paperTheme.colors.text}
           style={style.textInput}
           mode="outlined"
           secureTextEntry={true}
           placeholder="Sua senha"
         />
 
-        <ButtonGradient>
+        <ButtonGradient onTouchEnd={login}>
           Entrar
         </ButtonGradient>
 

@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { Avatar, Button, Chip, TextInput } from "react-native-paper";
-import { theme } from "../../theme";
+import { paperTheme } from "../../theme";
 import { Product, ProductCategory, User } from "../../types/domain/interfaces";
 import IconMaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { produtosMercadinho } from "../../mocks/productsCategories";
@@ -82,7 +82,7 @@ const styleProductItem = StyleSheet.create({
     marginTop: 10
   },
   valueText: {
-    color: theme.colors.primary,
+    color: paperTheme.colors.primary,
     alignSelf: "center"
   }
 })
@@ -98,7 +98,7 @@ function ProductItem({ product }: ProductItemProps) {
       </View>      
       <View style={[styleProductItem.bottomView, styleProductItem.inlineView]}>
         <Text style={styleProductItem.valueText}>R$ {product.value}</Text>
-        <IconMaterialCommunityIcons size={25} color={theme.colors.primary} name="basket-fill" />
+        <IconMaterialCommunityIcons size={25} color={paperTheme.colors.primary} name="basket-fill" />
       </View>
     </View>
   );
@@ -185,7 +185,7 @@ export default function ProductList(props: ProductListProps) {
       </View>
 
       <TextInput
-        placeholderTextColor={theme.colors.text}
+        placeholderTextColor={paperTheme.colors.text}
         style={style.searchInput}
         mode="outlined"
         placeholder="O que deseja buscar?"

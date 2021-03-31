@@ -3,7 +3,7 @@ import { View, Text, ScrollView, StyleSheet } from "react-native";
 import Icon from 'react-native-vector-icons/Entypo';
 import { TextInput, Button, Avatar, IconButton } from "react-native-paper"
 import { Basket } from "../../types/domain/interfaces";
-import { theme } from "../../theme";
+import { paperTheme } from "../../theme";
 
 const style = StyleSheet.create({
     mainView: {
@@ -15,7 +15,7 @@ const style = StyleSheet.create({
         flexDirection: "row",
     },
     textValue: {
-        color: theme.colors.primary,
+        color: paperTheme.colors.primary,
         fontSize: 16
     },
     productText: {
@@ -25,7 +25,7 @@ const style = StyleSheet.create({
     card: {
         marginVertical: 5,
         backgroundColor: "#fff",
-        borderColor: theme.colors.placeholder,
+        borderColor: paperTheme.colors.placeholder,
         borderWidth: 1,
         paddingHorizontal: 15,
         paddingVertical: 15,

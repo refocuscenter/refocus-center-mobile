@@ -2,28 +2,6 @@ import { DefaultTheme } from 'react-native-paper';
 import LinearGradient from 'react-native-linear-gradient';
 import { Gradient } from './types/app/theme';
 
-type PaperTheme = ReactNativePaper.Theme;
-
-export const theme: PaperTheme = {
-  ...DefaultTheme,
-  colors: {
-    ...DefaultTheme.colors,
-    primary: '#1CD69D',
-    background: '#fff',
-    text: '#757575',
-    placeholder: '#dddddd',
-    /*accent: "red",
-    backdrop: "red",
-    surface: "red",
-    notification: "red",
-    onSurface: "red",
-    placeholder: "red",
-    onBackground: "red",
-    disabled: "red",
-    error: "red"*/
-  },
-};
-
 export const measures = {
   prevalentMargin: 5
 }
@@ -67,3 +45,25 @@ export const colors = {
 export const actions = {
   activeOpacity: 0.6
 }
+
+type PaperTheme = ReactNativePaper.Theme;
+
+export const paperTheme: PaperTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: colors.darkPurple,
+    background: colors.white,
+    text: colors.darkPurple,
+    placeholder: colors.grayC2,
+    /*accent: "red",
+    backdrop: "red",
+    surface: "red",
+    notification: "red",
+    onSurface: "red",
+    placeholder: "red",
+    onBackground: "red",
+    disabled: "red",
+    error: "red"*/
+  },
+};

@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, ScrollView, StyleSheet } from "react-native";
 import { TextInput, Button, Avatar } from "react-native-paper"
 import { BasketProductList } from "../../containers/shop/BasketProductList";
-import { theme } from "../../theme";
+import { paperTheme } from "../../theme";
 import { Basket, UnitStore } from "../../types/domain/interfaces";
 import { user } from "../../mocks/user"
 import { unitStores } from "../../mocks/store";
@@ -21,7 +21,7 @@ const style = StyleSheet.create({
         flexDirection: "row",
     },
     textValue: {
-        color: theme.colors.primary
+        color: paperTheme.colors.primary
     },
     title: {
         fontSize: 18,
@@ -65,7 +65,7 @@ export default function MyBasket({ route }: MyBasketProps) {
             </View>
 
             <TextInput
-                placeholderTextColor={theme.colors.text}
+                placeholderTextColor={paperTheme.colors.text}
                 style={style.textInput}
                 mode="outlined"
                 placeholder="O que deseja buscar?"
