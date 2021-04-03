@@ -3,30 +3,84 @@ import { colors, fonts } from '../theme';
 import React from 'react';
 import { LinearTextGradient } from 'react-native-text-gradient';
 import { Text } from 'react-native-paper';
-import { StyleProp, TextStyle } from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
+import { StyleProp, StyleSheet, TextStyle, View } from 'react-native';
+import LinearGradient, { LinearGradientProps } from 'react-native-linear-gradient';
 
-export interface ViewGradientProps {
+const style = (() => {
+
+  const BORDER_RADIUS = 8
+  const BORDER_WIDTH = 1
+
+  return StyleSheet.create({
+    secondaryGradient: {
+      borderRadius: BORDER_WIDTH + BORDER_RADIUS,
+      padding: BORDER_WIDTH,
+    },
+    secondaryView: {
+      borderRadius: BORDER_RADIUS,
+      backgroundColor: colors.white,
+    }
+  }
+  )
+})();
+
+export type GradientType = 'primary' | 'secondary';
+
+export interface ViewGradientProps extends Partial<LinearGradientProps> {
+  type?: GradientType;
   gradient?: Gradient;
   children?: any;
-  style?: StyleProp<TextStyle>;
-  gradientStyle?: StyleProp<TextStyle>;
+  containerStyle?: StyleProp<TextStyle>;
 }
 
-export function ViewGradient({
-  gradient = colors.MainDegrade100,
-  style,
-  children
-}: ViewGradientProps) {
+export function ViewGradient(props: ViewGradientProps) {
+
+  const {
+    type = "primary"
+  } = props;
+
   return (
+    type === "primary" ?
+      <PrimaryViewGradient {...props} /> :
+      <SecondaryViewGradient {...props} />
+  );
+}
+
+function PrimaryViewGradient(props: ViewGradientProps) {
+  const {
+    gradient = colors.MainDegrade100,
+    children
+  } = props;
+
+  return <LinearGradient
+    locations={gradient.locations}
+    start={gradient.start}
+    end={gradient.end}
+    colors={gradient.colors}
+    {...props}
+  >
+    {children}
+  </LinearGradient>
+}
+
+function SecondaryViewGradient(props: ViewGradientProps) {
+  const {
+    gradient = colors.MainDegrade100,
+    children,
+    containerStyle
+  } = props;
+
+  return <View style={props.style}>
     <LinearGradient
       locations={gradient.locations}
       start={gradient.start}
       end={gradient.end}
       colors={gradient.colors}
-      style={style}
+      style={style.secondaryGradient}
     >
-      {children}
+      <View {...props} style={[style.secondaryView, containerStyle]}>
+        {children}
+      </View>
     </LinearGradient>
-  );
+  </View>
 }

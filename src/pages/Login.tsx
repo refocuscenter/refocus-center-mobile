@@ -16,6 +16,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { ScrollView } from 'react-native-gesture-handler';
 import { TextGradient } from '../components/TextGradient';
 import { ButtonGradient } from '../components/ButtonGradient';
+import { TextInputGradient } from '../components/TextInputGradient';
 
 export const style = StyleSheet.create({
   mainView: {
@@ -41,21 +42,26 @@ export const style = StyleSheet.create({
   button: {
     marginTop: 10,
   },
+  login: {
+    marginTop: 15,
+  },
   buttonContent: {
     paddingTop: 8,
     paddingBottom: 8,
   },
   buttonLabel: {
-    color: '#fff',
+    color: colors.white,
   },
   text: {
+    color: colors.black0B,
+    fontFamily: fonts.mainFontFamily,
     marginVertical: 10,
   },
   textBold: {
     fontWeight: 'bold',
   },
   socialMediaView: {
-    marginTop: 20,
+    marginTop: 35,
   },
   socialMediaIcon: {
     marginHorizontal: 5,
@@ -82,21 +88,19 @@ export default function Login() {
         <View style={[style.centerView, style.logoView]}>
           <LogoSVG width={hg(45)} height={hg(32.38)}></LogoSVG>
         </View>
-        <TextInput
-          placeholderTextColor={paperTheme.colors.text}
-          style={style.textInput}
-          mode="outlined"
-          placeholder="Seu email"
-        />
-        <TextInput
-          placeholderTextColor={paperTheme.colors.text}
-          style={style.textInput}
-          mode="outlined"
-          secureTextEntry={true}
-          placeholder="Sua senha"
+
+        <TextInputGradient
+          placeholder="Seu email ou celular"
+          containerStyle={style.textInput}
         />
 
-        <ButtonGradient onTouchEnd={login}>
+        <TextInputGradient
+          placeholder="Sua senha"
+          containerStyle={style.textInput}
+          secureTextEntry={true}
+        />
+
+        <ButtonGradient style={style.login} onTouchEnd={login}>
           Entrar
         </ButtonGradient>
 
