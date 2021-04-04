@@ -1,80 +1,91 @@
-import { Unit } from "./enums";
+import {Unit} from './enums';
 
 export interface User {
-    id: number,
-    displayName: string,
-    profilePhoto: string,
-    token: string
-    userAccountInStore: UserAccountStore[]
+  id: number;
+  displayName: string;
+  profilePhoto: string;
+  token: string;
+  userAccountInStore: UserAccountStore[];
 }
 
 export interface UserAccountStore {
-    balance: number,
-    store: Store
-    basket: Basket
+  balance: number;
+  store: Store;
+  basket: Basket;
 }
 
 export interface Basket {
-    totalValue?: number,
-    productPortions: ProductPortion[]
+  totalValue?: number;
+  portions: Portion[];
 }
 
-export interface ProductPortion {
-    portion: number,
-    product: Product
+/**
+ * Aquilo que se oferece (serviço ou produto)
+ * What is offered (service or product)
+ */
+export interface Offer {
+  name: string;
+  image: string;
+  value: number;
 }
 
-export interface Product {
-    name: string,
-    image: string,
-    value: number,
-    barcode?: string
+export interface Combo<Offer> {
+  name: string;
+  offers: Offer[];
 }
 
-export interface ProductCategory {
-    product: Product,
-    categories: string[]
+export interface Portion {
+  portion: number;
+  offer: Offer;
+}
+
+export interface Product extends Offer {}
+
+export interface Service extends Offer {}
+
+export interface OfferCategory {
+  offer: Offer;
+  categories: string[];
 }
 
 export interface UnitStore {
-    id: number,
-    name?: string,
-    image?: string,
-    openingIntervals: WeekOpeningIntervals
-    store: Store,
-    balance: number,
-    history: Extract[]
+  id: number;
+  name?: string;
+  image?: string;
+  // openingIntervals: WeekOpeningIntervals
+  store: Store;
+  // history: Extract[]
 }
 
 export interface Store {
-    id: number,
-    name: string,
-    image: string
+  id: number;
+  name: string;
+  image: string;
 }
 
 export interface WeekOpeningIntervals {
-    sunday: OpeningInterval,
-    monday: OpeningInterval,
-    tuesday: OpeningInterval,
-    wednesday: OpeningInterval,
-    thursday: OpeningInterval,
-    friday: OpeningInterval,
-    saturday: OpeningInterval
+  sunday: OpeningInterval;
+  monday: OpeningInterval;
+  tuesday: OpeningInterval;
+  wednesday: OpeningInterval;
+  thursday: OpeningInterval;
+  friday: OpeningInterval;
+  saturday: OpeningInterval;
 }
 
 export interface OpeningInterval {
-    openingHour: string,
-    closeHour: string
+  openingHour: string;
+  closeHour: string;
 }
 
 export interface HighlightScreen {
-    image: string,
-    title: string
-    unitStore: UnitStore
+  image: string;
+  title: string;
+  unitStore: UnitStore;
 }
 
 export interface Extract {
-    type: number,
-    value: number,
-    date: Date
+  type: number;
+  value: number;
+  date: Date;
 }
