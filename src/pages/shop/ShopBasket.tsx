@@ -5,7 +5,6 @@ import { BasketProductList } from "../../containers/shop/BasketProductList";
 import { paperTheme } from "../../theme";
 import { Basket, UnitStore } from "../../types/domain/interfaces";
 import { user } from "../../mocks/user"
-import { unitStores } from "../../mocks/store";
 
 const style = StyleSheet.create({
     mainView: {
@@ -38,13 +37,13 @@ const style = StyleSheet.create({
     }
 })
 
-export interface MyBasketProps {
+export interface ShopBasketProps {
     //unitStore: UnitStore,
     route: any,
     [key: string]: any
 }
 
-export default function MyBasket({ route }: MyBasketProps) {
+export default function ShopBasket({ route }: ShopBasketProps) {
     const unitStore: UnitStore = route.params.unitStore
 
     const userAccountInStore = user.userAccountInStore

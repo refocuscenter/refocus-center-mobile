@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Avatar } from 'react-native-paper';
 import IconAntDesign from 'react-native-vector-icons/AntDesign'
-import { UnitStore } from "../../types/domain/interfaces";
+import { UnitStore, UserAccountStore } from "../../types/domain/interfaces";
 
 const style = StyleSheet.create({
     content:{
@@ -51,11 +51,12 @@ const style = StyleSheet.create({
 
 interface CardAccountProps {
     unitStore: UnitStore,
+    userAccountStore: UserAccountStore
     [key: string]: any
 }
 
-export default function CardAccount({unitStore}: CardAccountProps) {
-    var [balance, setBalance] = useState('R$'+unitStore.balance.toString());
+export default function CardAccount({unitStore, userAccountStore}: CardAccountProps) {
+    var [balance, setBalance] = useState('R$'+userAccountStore.balance.toString());
     var [showBalance, setshowBalance] = useState(true);
     function replaceBalance() {
         setshowBalance(!showBalance);
@@ -66,7 +67,7 @@ export default function CardAccount({unitStore}: CardAccountProps) {
             }
             setBalance(cif);
         } else {
-            setBalance('R$'+unitStore.balance.toString());
+            setBalance('R$'+userAccountStore.balance.toString());
         }
     }
     return (

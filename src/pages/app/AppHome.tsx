@@ -2,9 +2,6 @@ import React, {useContext} from 'react';
 import {View, ScrollView, Text, StyleSheet} from 'react-native';
 import {Avatar, Button} from 'react-native-paper';
 import {user} from '../../mocks/user';
-import {unitStores} from '../../mocks/store';
-import {highlightScreen} from '../../mocks/highlightScreen';
-import {StoreCard} from '../../components/shop/StoreCard';
 import {HighlightCarousel} from '../../components/shop/HightlightCarousel';
 import AuthContext from '../../contexts/Auth';
 
@@ -80,19 +77,8 @@ export default function AppHome(props: HomeProps) {
 
       <Text style={style.title}>Destaques</Text>
 
-      <HighlightCarousel highlights={highlightScreen} />
-
       <Text style={style.title}>Suas Lojas</Text>
 
-      {unitStores.map((unitStore, i) => (
-        <StoreCard
-          key={'unit-store-' + i}
-          unitStore={unitStore}
-          onPress={() =>
-            props.navigation.navigate('HomeShop', {unitStore: unitStore})
-          }
-        />
-      ))}
     </ScrollView>
   );
 }

@@ -8,7 +8,6 @@ import IconMaterialCommunityIcons from "react-native-vector-icons/MaterialCommun
 import { produtosMercadinho } from "../../mocks/productsCategories";
 import {widthPercentageToDP as wd, heightPercentageToDP as hg} from "react-native-responsive-screen"
 
-
 const style = StyleSheet.create({
   inlineView: {
       flexWrap: "wrap",
@@ -172,6 +171,8 @@ export default function ProductList(props: ProductListProps) {
 
   return (
     <View style={style.mainView}>
+
+
       <View style={[style.topView, style.inlineView]}>
         <Text style={style.title}>Meus Produtos</Text>
         <Button
@@ -211,7 +212,7 @@ export default function ProductList(props: ProductListProps) {
         showsHorizontalScrollIndicator={false}>
         <View style={[style.listProductView, style.inlineView]}>
           {productCategoryList
-            .map(pc => <ProductItem product={pc.offer} />)}
+            .map((pc, i) => <ProductItem key={"pc-"+i} product={pc.offer} />)}
         </View>        
       </ScrollView>
     </View>

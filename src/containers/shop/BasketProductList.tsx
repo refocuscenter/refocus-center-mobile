@@ -51,13 +51,13 @@ export interface basketProductProps {
 export function BasketProductList({ basket }: basketProductProps) {
 
     return <View style={style.mainView}>
-        {basket?.productPortions
-            .map((product, i) => 
+        {basket?.portions
+            .map((portion, i) => 
                 <View key={"basket-product-list-" + i} style={[style.card, style.inlineView]}>
-                    <Avatar.Image style={style.image} size={84} source={{ uri: product.product.image }} />
+                    <Avatar.Image style={style.image} size={84} source={{ uri: portion.offer.image }} />
                     <View>
-                        <Text style={style.productText}>{product.product.name}</Text>
-                        <Text style={style.textValue}>R$ {(product.product.value * product.portion).toFixed(2)}</Text>
+                        <Text style={style.productText}>{portion.offer.name}</Text>
+                        <Text style={style.textValue}>R$ {(portion.offer.value * portion.portion).toFixed(2)}</Text>
                         
                         <View style={[style.inlineView]}>
                             <IconButton
@@ -68,7 +68,7 @@ export function BasketProductList({ basket }: basketProductProps) {
                             />
                             {/*<Icon color={"red"} size={30} name="minus"/>*/}
                             
-                            <Text style={style.textUnit}>{product.portion}</Text>
+                            <Text style={style.textUnit}>{portion.portion}</Text>
                             
                             <IconButton
                                 icon="plus"

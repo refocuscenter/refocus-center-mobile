@@ -49,9 +49,6 @@ export function StoreCard(props: StoreCardProps) {
 
   const now = new Date();
   const todayWeek = now.getDay();
-  const todayInterval: OpeningInterval = Object.entries(
-    unitStore.openingIntervals
-  )[todayWeek][1];
 
   return (
     <View style={styleStoreCard.mainView} onTouchEnd={props.onPress}>
@@ -66,9 +63,7 @@ export function StoreCard(props: StoreCardProps) {
         <Text>{props.unitStore.store.name}</Text>
         <View style={styleStoreCard.inlineView}>
           <Text style={styleStoreCard.statusText}>{"Aberto"}</Text>
-          <Text
-            style={styleStoreCard.hourText}
-          >{` - ${todayInterval.openingHour} às ${todayInterval.closeHour}`}</Text>
+          
         </View>
       </View>
 

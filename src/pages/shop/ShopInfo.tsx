@@ -1,8 +1,8 @@
 import React from "react";
 import { View, Text } from "react-native";
 
-export default function Help() {
+export default function ShopInfo() {
     return (
-        <View><Text>Help</Text></View>
+        <View><Text>Info</Text></View>
     );
 }
