@@ -88,7 +88,6 @@ export default function Login() {
         <View style={[style.centerView, style.logoView]}>
           <LogoSVG width={hg(45)} height={hg(32.38)}></LogoSVG>
         </View>
-
         <TextInputGradient
           placeholder="Seu email ou celular"
           containerStyle={style.textInput}

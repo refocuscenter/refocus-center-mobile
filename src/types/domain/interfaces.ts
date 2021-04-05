@@ -31,6 +31,7 @@ export interface Offer {
 
 export interface Combo<Offer> {
   name: string;
+  value: number;
   offers: Offer[];
 }
 
@@ -60,6 +61,7 @@ export interface UnitStore {
 export interface Store {
   id: number;
   name: string;
+  sector: string;
   image: string;
 }
 

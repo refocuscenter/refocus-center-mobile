@@ -6,12 +6,14 @@ import {Combo, Service, UnitStore, UserAccountStore} from '../types/domain/inter
 import {kitCleanUnit1} from '../mocks/store';
 import {user} from '../mocks/user';
 import {colors} from '../theme';
+import { XOR } from '../types/app/operators';
+import { kitCleanAllServicesAndCombos } from '../mocks/services';
 
 export type AppStackParamList = {
   Shop: {
     unitStore: UnitStore;
     userAccountStore: UserAccountStore;
-    services: (Combo<Service> | Service)[];
+    services: XOR<Combo<Service>, Service>[];
   };
 };
 
@@ -26,6 +28,8 @@ const AppRoutes: React.FC = () => {
           name="Shop"
           component={ShopRoutes}
           initialParams={{
+            //CALLING MOCKS
+            services: kitCleanAllServicesAndCombos,
             unitStore: kitCleanUnit1,
             userAccountStore: user.userAccountInStore[0],
           }}

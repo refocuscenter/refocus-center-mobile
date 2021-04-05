@@ -14,7 +14,7 @@ import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import IconAnt from 'react-native-vector-icons/AntDesign';
 import IconFeather from 'react-native-vector-icons/Feather';
 import IndexRoutes from './index';
-import {createStackNavigator} from '@react-navigation/stack';
+import {createStackNavigator, StackScreenProps} from '@react-navigation/stack';
 import {NavigationContainer, RouteProp} from '@react-navigation/native';
 import {
   Combo,
@@ -31,29 +31,26 @@ import {createToggleIconGradient} from '../utils/toggleIcons';
 import ShopOffers from '../pages/shop/ShopOffers';
 import BasketSVG from '../assets/images/icons/slim-shop-basket-icon.svg'
 import ShopHomeSVG from '../assets/images/icons/slim-shop-home.svg'
+import { XOR } from '../types/app/operators';
 
 export type ShopStackParamList = {
   ShopHome: {
     unitStore: UnitStore;
     userAccountStore: UserAccountStore;
-    services: (Combo<Service> | Service)[];
+    services: XOR<Combo<Service>, Service>[];
   };
   ShopOffers: {
     unitStore: UnitStore;
-    services: (Combo<Service> | Service)[];
+    services: XOR<Combo<Service>, Service>[];
   };
   ShopBasket: {
     unitStore: UnitStore;
-    services: (Combo<Service> | Service)[];
+    services: XOR<Combo<Service>, Service>[];
   };
   ShopInfo: {};
 };
 
-type ShopRouteProp = RouteProp<AppStackParamList, 'Shop'>;
-
-interface ShopRoutesProps {
-  route: ShopRouteProp;
-}
+type ShopRoutesProps = StackScreenProps<AppStackParamList, 'Shop'>;
 
 const Tab = createBottomTabNavigator<ShopStackParamList>();
 

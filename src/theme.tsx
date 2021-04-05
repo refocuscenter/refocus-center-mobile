@@ -1,14 +1,20 @@
-import { DefaultTheme } from 'react-native-paper';
+import {DefaultTheme} from 'react-native-paper';
 import LinearGradient from 'react-native-linear-gradient';
-import { Gradient } from './types/app/theme';
+import {Gradient} from './types/app/theme';
 
 export const measures = {
-  prevalentMargin: 5
-}
+  prevalentMargin: 5,
+};
 
 export const fonts = {
-  mainFontFamily: 'Poppins-Regular'
-}
+  mainFontFamily: 'Poppins-Regular',
+
+  extraLightFontFamily: 'Poppins-ExtraLight',
+  lightFontFamily: 'Poppins-Light',
+  mediumFontFamily: 'Poppins-Medium',
+  boldFontFamily: 'Poppins-Bold',
+  extraBoldFontFamily: 'Poppins-ExtraBold',
+};
 
 export const colors = {
   // mainDegrade100: "linear-gradient(88.78deg, #DA5AFA -34.1%, #3570EC 113.16%)",
@@ -16,14 +22,14 @@ export const colors = {
   MainDegrade100: {
     locations: [0, 1],
     colors: ['#DA5AFA', '#3570EC'],
-    start: { x: 0, y: 0 },
-    end: { x: 1, y: 1 },
+    start: {x: 0, y: 0},
+    end: {x: 1, y: 1},
   } as Gradient,
   MainDegrade60: {
     locations: [0, 1],
     colors: ['rgba(218, 90, 250, 0.6)', 'rgba(53, 112, 236, 0.6)'],
-    start: { x: 0, y: 0 },
-    end: { x: 1, y: 1 },
+    start: {x: 0, y: 0},
+    end: {x: 1, y: 1},
   } as Gradient,
 
   lightBlue92: '#92B2F5',
@@ -43,8 +49,8 @@ export const colors = {
 };
 
 export const actions = {
-  activeOpacity: 0.6
-}
+  activeOpacity: 0.6,
+};
 
 type PaperTheme = ReactNativePaper.Theme;
 
