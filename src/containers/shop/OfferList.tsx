@@ -7,6 +7,7 @@ import {
   ViewStyle,
   FlatList,
   FlatListProps,
+  GestureResponderEvent,
 } from 'react-native';
 import {BlankItem} from '../../components/shop/BlankItem';
 import {OfferItem} from '../../components/shop/OfferItem';
@@ -14,7 +15,7 @@ import {TextGradient} from '../../components/TextGradient';
 import {ViewGradient} from '../../components/ViewGradient';
 import {colors} from '../../theme';
 import {XOR} from '../../types/app/operators';
-import {Combo, Offer} from '../../types/domain/interfaces';
+import {Combo, Offer, OfferXorCombo} from '../../types/domain/interfaces';
 
 const style = StyleSheet.create({
   main: {
@@ -26,9 +27,14 @@ const style = StyleSheet.create({
 });
 
 interface OfferListProps extends Partial<FlatListProps<any>> {
-  offers: XOR<Offer, Combo<Offer>>[];
+  offers: OfferXorCombo[];
   limit?: number;
   style?: StyleProp<ViewStyle>;
+
+  /**
+   * Only exits if limit is defined and is exceeded
+   */
+  seeMoreItemOnPress?: (event: GestureResponderEvent) => void;
 }
 
 export function OfferList(props: OfferListProps) {
@@ -40,7 +46,7 @@ export function OfferList(props: OfferListProps) {
       data={createItems(props)}
       keyExtractor={(_, i) => 'offer-item-' + i}
       style={style.main}
-      renderItem={renderItem}
+      renderItem={createRenderItem(props)}
       showsVerticalScrollIndicator={false}
       showsHorizontalScrollIndicator={false}
       {...props}
@@ -48,7 +54,7 @@ export function OfferList(props: OfferListProps) {
   );
 }
 
-function createItems(props: OfferListProps): XOR<Offer, Combo<Offer>>[] {
+function createItems(props: OfferListProps): OfferXorCombo[] {
   const {offers, limit} = props;
 
   return limitItems(offers, limit).map((o, i, arr) =>
@@ -56,15 +62,25 @@ function createItems(props: OfferListProps): XOR<Offer, Combo<Offer>>[] {
   );
 }
 
-function renderItem({item}: {item: XOR<Offer, Combo<Offer>> | 'see-more'}) {
-  return item !== 'see-more' ? (
-    <OfferItem
-      containerStyle={style.item}
-      offer={item as XOR<Offer, Combo<Offer>>}
-    />
-  ) : (
-    <BlankItem containerStyle={style.item}>Ver mais</BlankItem>
-  );
+function createRenderItem(props: OfferListProps) {
+  const {seeMoreItemOnPress} = props;
+
+  return function renderItem({
+    item,
+  }: {
+    item: OfferXorCombo | 'see-more';
+  }) {
+    return item !== 'see-more' ? (
+      <OfferItem
+        containerStyle={style.item}
+        offer={item as OfferXorCombo}
+      />
+    ) : (
+      <BlankItem onPress={seeMoreItemOnPress} containerStyle={style.item}>
+        Ver mais
+      </BlankItem>
+    );
+  };
 }
 
 function limitItems(items: any[], limit?: number) {
