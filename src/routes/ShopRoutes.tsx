@@ -19,6 +19,7 @@ import {NavigationContainer, RouteProp} from '@react-navigation/native';
 import {
   Combo,
   Service,
+  ServiceXorCombo,
   UnitStore,
   UserAccountStore,
 } from '../types/domain/interfaces';
@@ -29,23 +30,23 @@ import {colors} from '../theme';
 import {IconGradient, IconGradientProps} from '../components/IconGradient';
 import {createToggleIconGradient} from '../utils/toggleIcons';
 import ShopOffers from '../pages/shop/ShopOffers';
-import BasketSVG from '../assets/images/icons/slim-shop-basket-icon.svg'
-import ShopHomeSVG from '../assets/images/icons/slim-shop-home.svg'
-import { XOR } from '../types/app/operators';
+import BasketSVG from '../assets/images/icons/slim-shop-basket-icon.svg';
+import ShopHomeSVG from '../assets/images/icons/slim-shop-home.svg';
+import {XOR} from '../types/app/operators';
 
 export type ShopStackParamList = {
   ShopHome: {
     unitStore: UnitStore;
     userAccountStore: UserAccountStore;
-    services: XOR<Combo<Service>, Service>[];
+    services: ServiceXorCombo[];
   };
   ShopOffers: {
     unitStore: UnitStore;
-    services: XOR<Combo<Service>, Service>[];
+    services: ServiceXorCombo[];
   };
   ShopBasket: {
     unitStore: UnitStore;
-    services: XOR<Combo<Service>, Service>[];
+    services: ServiceXorCombo[];
   };
   ShopInfo: {};
 };
@@ -56,22 +57,32 @@ const Tab = createBottomTabNavigator<ShopStackParamList>();
 
 const togglableIcons = {
   shopHome: createToggleIconGradient(
-    <ShopHomeSVG fill={colors.darkPurple}  width="32" height="32"/>,
+    <ShopHomeSVG fill={colors.darkPurple} width="32" height="32" />,
+    {
+      gradientProps: {gradient: colors.MainDegrade100},
+    },
   ),
   shopOffers: createToggleIconGradient(
-    <IconIonicons
-      name="cube-outline"
-      color={colors.darkPurple}
-      size={34}
-    />,
-    {gradientSize: {width: 34, height: 36}}
+    <IconIonicons name="cube-outline" color={colors.darkPurple} size={34} />,
+    {
+      gradientSize: {width: 34, height: 36},
+      gradientProps: {gradient: colors.MainDegrade100},
+    },
   ),
   shopBasket: createToggleIconGradient(
     <BasketSVG fill={colors.darkPurple} width="32" height="32"></BasketSVG>,
+    {gradientProps: {gradient: colors.MainDegrade100}},
   ),
   shopInfo: createToggleIconGradient(
-    <IconIonicons name="information-circle-outline" color={colors.darkPurple} size={36} />,
-    {gradientSize: {width: 36, height: 38}, },
+    <IconIonicons
+      name="information-circle-outline"
+      color={colors.darkPurple}
+      size={36}
+    />,
+    {
+      gradientSize: {width: 36, height: 38},
+      gradientProps: {gradient: colors.MainDegrade100},
+    },
   ),
 };
 
@@ -86,8 +97,9 @@ const style = {
       borderTopColor: colors.whiteF2,
       borderTopWidth: 1,
       height: 60,
+      marginHorizontal: -25
     },
-  } as BottomTabBarOptions,
+  } as BottomTabBarOptions
 };
 
 export default function ShopRoutes(props: ShopRoutesProps) {
