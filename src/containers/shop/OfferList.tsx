@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   ScrollView,
   StyleProp,
@@ -6,6 +6,7 @@ import {
   View,
   ViewStyle,
   FlatList,
+  FlatListProps,
 } from 'react-native';
 import {BlankItem} from '../../components/shop/BlankItem';
 import {OfferItem} from '../../components/shop/OfferItem';
@@ -16,12 +17,6 @@ import {XOR} from '../../types/app/operators';
 import {Combo, Offer} from '../../types/domain/interfaces';
 
 const style = StyleSheet.create({
-  inlineView: {
-    flex: 1,
-    flexWrap: 'wrap',
-    alignItems: 'flex-start',
-    flexDirection: 'row',
-  },
   main: {
     marginHorizontal: 10,
   },
@@ -30,7 +25,7 @@ const style = StyleSheet.create({
   },
 });
 
-interface OfferListProps {
+interface OfferListProps extends Partial<FlatListProps<any>> {
   offers: XOR<Offer, Combo<Offer>>[];
   limit?: number;
   style?: StyleProp<ViewStyle>;
@@ -40,15 +35,16 @@ export function OfferList(props: OfferListProps) {
   const {offers, limit} = props;
 
   return (
-    <View style={props.style}>
-      <FlatList
-        numColumns={2}
-        data={createItems(props)}
-        keyExtractor={(_, i) => 'offer-item-' + i}
-        style={style.main}
-        renderItem={renderItem}
-      />
-    </View>
+    <FlatList
+      numColumns={2}
+      data={createItems(props)}
+      keyExtractor={(_, i) => 'offer-item-' + i}
+      style={style.main}
+      renderItem={renderItem}
+      showsVerticalScrollIndicator={false}
+      showsHorizontalScrollIndicator={false}
+      {...props}
+    />
   );
 }
 
