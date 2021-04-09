@@ -43,8 +43,8 @@ export function TextInputGradient(props: TextInputGradientProps) {
 
     return (
         <ViewGradient
-            containerStyle={style.viewGradient}
-            style={containerStyle}
+            style={style.viewGradient}
+            containerStyle={containerStyle}
             gradient={gradient}
             type="secondary">
             <TextInput
