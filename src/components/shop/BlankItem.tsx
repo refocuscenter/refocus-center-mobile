@@ -1,6 +1,12 @@
 import React from 'react';
-import {StyleSheet, ViewProps} from 'react-native';
-import {colors} from '../../theme';
+import {
+  GestureResponderEvent,
+  StyleSheet,
+  TouchableOpacity,
+  ViewProps,
+} from 'react-native';
+import {TouchableProps} from 'react-native-svg';
+import {actions, colors} from '../../theme';
 import {TextGradient} from '../TextGradient';
 import {ViewGradient, ViewGradientProps} from '../ViewGradient';
 
@@ -15,20 +21,32 @@ const style = StyleSheet.create({
   },
 });
 
-interface BlankItemProps extends ViewGradientProps {
+interface BlankItemProps extends Partial<ViewGradientProps> {
   children?: any;
+  touchableProps?: TouchableProps;
+  onPress?: (event: GestureResponderEvent) => void;
 }
 
 export function BlankItem(props: BlankItemProps) {
+  const {onPress, touchableProps} = props;
+
   return (
-    <ViewGradient
-      gradient={colors.MainDegrade60}
-      borderRadius={18}
-      type="secondary"
-      {...props}
-      style={[style.item, props.style]}
-      containerStyle={[style.itemContainer, props.containerStyle]}>
-      <TextGradient>{props.children}</TextGradient>
-    </ViewGradient>
+    <TouchableOpacity
+      activeOpacity={actions.activeOpacity}
+      onPress={onPress}
+      {...touchableProps}
+      style={[style.itemContainer, props.containerStyle]}>
+      <ViewGradient
+        gradient={colors.MainDegrade60}
+        borderRadius={18}
+        type="secondary"
+        {...props}
+        style={[style.item, props.style]}
+        containerStyle={style.itemContainer}>
+        <TextGradient gradient={colors.MainDegrade60}>
+          {props.children}
+        </TextGradient>
+      </ViewGradient>
+    </TouchableOpacity>
   );
 }
