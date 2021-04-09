@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
+  Keyboard,
   StyleProp,
   StyleSheet,
   TextInputProps,
@@ -29,42 +30,68 @@ const style = StyleSheet.create({
     fontFamily: fonts.mediumFontFamily,
     fontSize: 20,
   },
-  sector: {
+  description: {
     marginTop: -5,
     color: colors.gray80,
   },
   search: {
     flex: 1,
-    marginHorizontal: 20,
-    marginTop: 5
+    marginRight: 20,
+    marginTop: 5,
+  },
+  leftView: {
+    marginRight: 20,
   },
 });
 
 interface ShopTopMenuProps {
-  unitStore: UnitStore;
+  unitStore?: UnitStore;
+  title?: string;
+  description?: string;
 }
 
 export function ShopTopMenu(props: ShopTopMenuProps) {
-  const {unitStore} = props;
+  const {unitStore, title, description} = props;
+
+  const [showLeftView, setShowLeftView] = useState(true);
 
   return (
     <View style={style.main}>
       <View style={style.contents}>
-        <View>
-          <Text style={style.title}>{unitStore.store.name}</Text>
-          <Text style={style.sector}>{unitStore.store.sector}</Text>
+        <View
+          style={[style.leftView, {display: showLeftView ? 'flex' : 'none'}]}>
+          <Text style={style.title}>{title || unitStore?.store.name}</Text>
+          <Text style={style.description}>{description || unitStore?.store.sector}</Text>
         </View>
 
         <Search
+          onFocus={() => setShowLeftView(false)}
+          onBlur={() => setShowLeftView(true)}
           containerStyle={style.search}
           placeholder="O que deseja buscar?"
         />
 
-        <TouchableOpacity activeOpacity={actions.activeOpacity}>
+        <TouchableOpacity
+          style={{display: showLeftView ? 'flex' : 'none'}}
+          activeOpacity={actions.activeOpacity}>
           <IconGradient
             gradientProps={{gradient: colors.MainDegrade60}}
             gradientSize={{width: 48, height: 48}}>
             <IconIonicons size={48} name="md-menu"></IconIonicons>
+          </IconGradient>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          onPress={() => {
+            Keyboard.dismiss();
+            setShowLeftView(true);
+          }}
+          style={{display: !showLeftView ? 'flex' : 'none'}}
+          activeOpacity={actions.activeOpacity}>
+          <IconGradient
+            gradientProps={{gradient: colors.MainDegrade60}}
+            gradientSize={{width: 48, height: 48}}>
+            <IconIonicons size={48} name="close-outline"></IconIonicons>
           </IconGradient>
         </TouchableOpacity>
       </View>
