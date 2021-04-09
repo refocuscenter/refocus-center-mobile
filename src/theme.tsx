@@ -12,6 +12,7 @@ export const fonts = {
   extraLightFontFamily: 'Poppins-ExtraLight',
   lightFontFamily: 'Poppins-Light',
   mediumFontFamily: 'Poppins-Medium',
+  semiBoldFontFamily: 'Poppins-SemiBold',
   boldFontFamily: 'Poppins-Bold',
   extraBoldFontFamily: 'Poppins-ExtraBold',
 };
