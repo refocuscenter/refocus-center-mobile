@@ -36,9 +36,13 @@ export interface Combo<Offer> {
   offers: Offer[];
 }
 
+export type OfferXorCombo = XOR<Offer, Combo<Offer>>;
+export type ProductXorCombo = XOR<Product, Combo<Product>>;
+export type ServiceXorCombo = XOR<Service, Combo<Service>>;
+
 export interface Portion {
   amount: number;
-  offer: XOR<Offer, Combo<Offer>>;
+  offer: OfferXorCombo;
 }
 
 export interface Product extends Offer {}

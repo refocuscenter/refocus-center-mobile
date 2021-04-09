@@ -7,7 +7,7 @@ import {
   View,
 } from 'react-native';
 import {actions, colors, fonts} from '../../theme';
-import {Combo, Offer} from '../../types/domain/interfaces';
+import {Combo, Offer, OfferXorCombo} from '../../types/domain/interfaces';
 import {Text} from '../Text';
 import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -37,8 +37,7 @@ const style = StyleSheet.create({
     height: 45,
   },
   textOffer: {
-    //textAlign: 'center',
-    //color: colors.
+    textAlign: 'left',
   },
   inlineView: {
     flexWrap: 'wrap',
@@ -70,7 +69,7 @@ const style = StyleSheet.create({
 });
 
 export interface OfferItemProps extends ViewGradientProps {
-  offer: XOR<Offer, Combo<Offer>>;
+  offer: OfferXorCombo;
   amountState?: [number, React.Dispatch<React.SetStateAction<number>>];
   iconButtonProps?: IconButtonProps;
 }
@@ -104,9 +103,9 @@ export function OfferItem(props: OfferItemProps) {
         ) : (
           <Image style={style.image} source={{uri: offer.image}} />
         )}
-        <View style={style.textOfferView}>
-          <Text style={style.textOffer}>{offer.name}</Text>
-        </View>
+      </View>
+      <View style={style.textOfferView}>
+        <Text style={style.textOffer}>{offer.name}</Text>
       </View>
       <View style={[style.inlineView, style.bottomView]}>
         <TextGradient gradient={colors.MainDegrade60} style={style.valueText}>
@@ -137,7 +136,7 @@ const styleAmountView = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    marginRight: -8
+    marginRight: -8,
   },
   textAmount: {},
   icon: {
