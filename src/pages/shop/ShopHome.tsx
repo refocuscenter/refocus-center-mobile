@@ -48,6 +48,9 @@ export default function ShopHome(props: ShopHomeProps) {
         limit={4}
         ListHeaderComponent={Header(props)}
         ListFooterComponent={Footer(props)}
+        seeMoreItemOnPress={() =>
+          navigation.navigate('ShopOffers', route.params)
+        }
       />
     </SafeAreaView>
   );
