@@ -57,7 +57,7 @@ export function BasketProductList({ basket }: basketProductProps) {
                     <Avatar.Image style={style.image} size={84} source={{ uri: portion.offer.image }} />
                     <View>
                         <Text style={style.productText}>{portion.offer.name}</Text>
-                        <Text style={style.textValue}>R$ {(portion.offer.value * portion.portion).toFixed(2)}</Text>
+                        <Text style={style.textValue}>R$ {(portion.offer.value * portion.amount).toFixed(2)}</Text>
                         
                         <View style={[style.inlineView]}>
                             <IconButton
@@ -68,7 +68,7 @@ export function BasketProductList({ basket }: basketProductProps) {
                             />
                             {/*<Icon color={"red"} size={30} name="minus"/>*/}
                             
-                            <Text style={style.textUnit}>{portion.portion}</Text>
+                            <Text style={style.textUnit}>{portion.amount}</Text>
                             
                             <IconButton
                                 icon="plus"

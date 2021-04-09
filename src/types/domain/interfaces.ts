@@ -1,3 +1,4 @@
+import { XOR } from '../app/operators';
 import {Unit} from './enums';
 
 export interface User {
@@ -36,8 +37,8 @@ export interface Combo<Offer> {
 }
 
 export interface Portion {
-  portion: number;
-  offer: Offer;
+  amount: number;
+  offer: XOR<Offer, Combo<Offer>>;
 }
 
 export interface Product extends Offer {}
