@@ -17,6 +17,7 @@ import IndexRoutes from './index';
 import {createStackNavigator, StackScreenProps} from '@react-navigation/stack';
 import {NavigationContainer, RouteProp} from '@react-navigation/native';
 import {
+  Basket,
   Combo,
   Service,
   ServiceXorCombo,
@@ -47,6 +48,7 @@ export type ShopStackParamList = {
   ShopBasket: {
     unitStore: UnitStore;
     services: ServiceXorCombo[];
+    basket: Basket;
   };
   ShopInfo: {};
 };

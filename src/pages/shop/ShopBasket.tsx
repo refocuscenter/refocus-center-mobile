@@ -1,83 +1,77 @@
-import React from "react";
-import { View, Text, ScrollView, StyleSheet } from "react-native";
-import { TextInput, Button, Avatar } from "react-native-paper"
-import { BasketProductList } from "../../containers/shop/BasketProductList";
-import { paperTheme } from "../../theme";
-import { Basket, UnitStore } from "../../types/domain/interfaces";
-import { user } from "../../mocks/user"
+import React from 'react';
+import {View, Text, ScrollView, StyleSheet, FlatList} from 'react-native';
+import {TextInput, Button, Avatar} from 'react-native-paper';
+import {BasketProductList} from '../../containers/shop/BasketProductList';
+import {colors, paperTheme} from '../../theme';
+import {Basket, BasketItem, UnitStore} from '../../types/domain/interfaces';
+import {user} from '../../mocks/user';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {ShopTopMenu} from '../../containers/shop/ShopTopMenu';
+import {StackScreenProps} from '@react-navigation/stack';
+import {ShopStackParamList} from '../../routes/ShopRoutes';
+import { TextGradient } from '../../components/TextGradient';
 
 const style = StyleSheet.create({
-    mainView: {
-        marginHorizontal: 15,
-        marginTop: 35
-    },
-    topView: {
-        justifyContent: "space-between"
-    },
-    inlineView: {
-        flexWrap: "wrap",
-        alignItems: "flex-start",
-        flexDirection: "row",
-    },
-    textValue: {
-        color: paperTheme.colors.primary
-    },
-    title: {
-        fontSize: 18,
-        alignSelf: "center"
-    },
-    roundButton: {
-        borderRadius: 50      
-    },
-    textButton: {
-        color: "#fff"
-    },
-    textInput: {
-        marginBottom: 10
-    }
-})
+  main: {
+    backgroundColor: colors.white,
+    flex: 1,
+  },
+});
 
-export interface ShopBasketProps {
-    //unitStore: UnitStore,
-    route: any,
-    [key: string]: any
+type ShopBasketProps = StackScreenProps<ShopStackParamList, 'ShopBasket'>;
+
+export default function ShopBasket(props: ShopBasketProps) {
+  const {route} = props;
+  const unitStore: UnitStore = route.params.unitStore;
+
+  return (
+    <SafeAreaView style={style.main}>
+      <ShopTopMenu
+        title="Sua Cesta"
+        description={unitStore.name || unitStore.store.name}
+        unitStore={unitStore}
+        titleStyle={{fontSize: 15}}
+      />
+
+      <OfferBasket basket={route.params.basket} />
+        
+    </SafeAreaView>
+  );
 }
 
-export default function ShopBasket({ route }: ShopBasketProps) {
-    const unitStore: UnitStore = route.params.unitStore
+const styleOfferBasket = StyleSheet.create({
+  main: {
+    marginHorizontal: 10,
+  },
+  item: {
+    margin: 4,
+  },
+});
 
-    const userAccountInStore = user.userAccountInStore
-        .find((account) => account.store.id === unitStore.store.id) 
+interface OfferBasketProps {
+  basket: Basket;
+}
 
-    return (
-        <View style={style.mainView}>
-            <View style={[style.topView, style.inlineView]}>
-                <Text style={style.title}>Minha Cesta</Text>
-                <Button 
-                    icon="arrow-left" 
-                    style={style.roundButton} 
-                    mode="contained"
-                    labelStyle={style.textButton} 
-                >
-                    <Text>Produtos</Text>
-                </Button>
-            </View>
+function OfferBasket(props: OfferBasketProps) {
+  return (
+    <FlatList
+      data={props.basket.basketItems}
+      keyExtractor={(_, i) => 'basket-item-' + i}
+      style={styleOfferBasket.main}
+      renderItem={createRenderItem(props)}
+      showsVerticalScrollIndicator={false}
+      showsHorizontalScrollIndicator={false}
+  
+    />
+  );
+}
 
-            <TextInput
-                placeholderTextColor={paperTheme.colors.text}
-                style={style.textInput}
-                mode="outlined"
-                placeholder="O que deseja buscar?"
-            />
-
-            <ScrollView
-                style={{marginBottom: 120}}             
-                showsVerticalScrollIndicator={false}
-                showsHorizontalScrollIndicator={false} 
-            >
-
-                <BasketProductList basket={userAccountInStore?.basket} />
-            </ScrollView>
-        </View>
-    );
+function createRenderItem(props: OfferBasketProps) {
+  return function renderItem({item}: {item: BasketItem}) {
+    return <View>
+      <TextGradient>
+        {JSON.stringify(item)}
+      </TextGradient>
+    </View>;
+  };
 }

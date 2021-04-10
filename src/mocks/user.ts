@@ -28,7 +28,7 @@ export const user: User = {
       balance: 100.49,
       store: kitCleanStore,
       basket: {
-        portions: randomProductsAndPortions(),
+        basketItems: [{totalValue: 10, portions: randomProductsAndPortions()}],
       },
     },
   ],

@@ -4,6 +4,7 @@ import {
   StyleProp,
   StyleSheet,
   TextInputProps,
+  TextStyle,
   TouchableOpacity,
   View,
   ViewProps,
@@ -28,7 +29,7 @@ const style = StyleSheet.create({
   },
   title: {
     fontFamily: fonts.mediumFontFamily,
-    fontSize: 20,
+    fontSize: 16,
   },
   description: {
     marginTop: -5,
@@ -41,6 +42,7 @@ const style = StyleSheet.create({
   },
   leftView: {
     marginRight: 20,
+    justifyContent: "center"
   },
 });
 
@@ -48,10 +50,11 @@ interface ShopTopMenuProps {
   unitStore?: UnitStore;
   title?: string;
   description?: string;
+  titleStyle?: StyleProp<TextStyle>
 }
 
 export function ShopTopMenu(props: ShopTopMenuProps) {
-  const {unitStore, title, description} = props;
+  const {unitStore, title, description, titleStyle} = props;
 
   const [showLeftView, setShowLeftView] = useState(true);
 
@@ -60,7 +63,7 @@ export function ShopTopMenu(props: ShopTopMenuProps) {
       <View style={style.contents}>
         <View
           style={[style.leftView, {display: showLeftView ? 'flex' : 'none'}]}>
-          <Text style={style.title}>{title || unitStore?.store.name}</Text>
+          <Text style={[style.title, titleStyle]}>{title || unitStore?.store.name}</Text>
           <Text style={style.description}>{description || unitStore?.store.sector}</Text>
         </View>
 

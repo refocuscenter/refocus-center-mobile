@@ -16,6 +16,10 @@ export interface UserAccountStore {
 }
 
 export interface Basket {
+  basketItems: BasketItem[];
+}
+
+export interface BasketItem {
   totalValue?: number;
   portions: Portion[];
 }
