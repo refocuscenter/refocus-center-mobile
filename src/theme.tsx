@@ -32,6 +32,18 @@ export const colors = {
     start: {x: 0, y: 0},
     end: {x: 1, y: 1},
   } as Gradient,
+  MainDegrade60White: {
+    locations: [0, 1],
+    colors: ['#E99CFC', '#86A9F4'],
+    start: {x: 0, y: 0},
+    end: {x: 1, y: 1},
+  } as Gradient,
+  WhiteFadeDegrade: {
+    locations: [0, 1],
+    colors: ['rgba(255, 255, 255, 0)', 'rgba(255, 255, 255, 1)'],
+    start: {x: 2, y: 0},
+    end: {x: 2, y: 0.6},
+  } as Gradient,
 
   lightBlue92: '#92B2F5',
   darkPurple: '#555187',
