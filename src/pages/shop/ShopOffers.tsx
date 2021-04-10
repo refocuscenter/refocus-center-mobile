@@ -23,6 +23,9 @@ import {ShopStackParamList} from '../../routes/ShopRoutes';
 import {ShopTopMenu} from '../../containers/shop/ShopTopMenu';
 import {OfferList} from '../../containers/shop/OfferList';
 import ShopProfile from '../../containers/shop/ShopProfile';
+import {IconButton} from '../../components/IconButton';
+import BasketSVG from '../../assets/images/icons/slim-shop-basket-icon.svg';
+import {ViewGradient} from '../../components/ViewGradient';
 
 const style = StyleSheet.create({
   main: {
@@ -36,13 +39,26 @@ const style = StyleSheet.create({
     fontSize: 15,
     color: colors.darkPurple,
   },
+  basketButtonContainer: {
+    alignItems: 'flex-end',
+
+    width: '100%',
+    //backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    position: 'absolute',
+    bottom: 0,
+  },
+  basketButton: {
+    paddingRight: 20,
+    paddingTop: 30,
+    paddingBottom: 10,
+  },
 });
 
-type ShopOffersProps = StackScreenProps<ShopStackParamList, 'ShopHome'>;
+type ShopOffersProps = StackScreenProps<ShopStackParamList, 'ShopOffers'>;
 
 export default function ProductList(props: ShopOffersProps) {
   const {route, navigation} = props;
-  const {unitStore, userAccountStore, services} = route.params;
+  const {unitStore, services} = route.params;
 
   return (
     <SafeAreaView style={style.main}>
@@ -60,17 +76,28 @@ export default function ProductList(props: ShopOffersProps) {
           navigation.navigate('ShopOffers', route.params)
         }
       />
+
+      <ViewGradient
+        gradient={colors.WhiteFadeDegrade}
+        style={style.basketButtonContainer}>
+        <IconButton
+          gradientProps={{gradient: colors.MainDegrade60White}}
+          touchableProps={{style: style.basketButton}}
+          size={50}>
+          <BasketSVG fill={colors.white} width="26" height="26" />
+        </IconButton>
+      </ViewGradient>
     </SafeAreaView>
   );
 }
 
 function Header(props: ShopOffersProps) {
   const {route, navigation} = props;
-  const {unitStore, userAccountStore, services} = route.params;
+  const {unitStore, services} = route.params;
 
-  return <View></View>;
+  return <View style={{paddingTop: 10}}></View>;
 }
 
 function Footer(props: ShopOffersProps) {
-  return <View></View>;
+  return <View style={{paddingBottom: 80}}></View>;
 }
