@@ -1,7 +1,7 @@
 import {XOR} from '../types/app/operators';
 import {Combo, Service, UnitStore} from '../types/domain/interfaces';
 
-const kitCleanServicesOnly = Object.freeze({
+export const kitCleanServicesOnly = Object.freeze({
   LAVA_COM_PRODUTO: {
     name: 'Lavagem de roupas com produto',
     value: 750,
@@ -23,7 +23,7 @@ export const kitCleanAllServicesAndCombos: XOR<Service, Combo<Service>>[] = [
   {
     name: 'Combo Lavagem com produto + Secagem',
     value: 1300,
-    offers: [kitCleanServicesOnly.LAVA_COM_PRODUTO, kitCleanServicesOnly.SECA],
+    offers: [kitCleanServicesOnly.LAVA_COM_PRODUTO, kitCleanServicesOnly.SECA, kitCleanServicesOnly.LAVA_SEM_PRODUTO],
   },
   {
     name: 'Combo Lavagem (sem produto) + Secagem',

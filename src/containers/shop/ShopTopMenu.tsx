@@ -42,7 +42,7 @@ const style = StyleSheet.create({
   },
   leftView: {
     marginRight: 20,
-    justifyContent: "center"
+    justifyContent: 'center',
   },
 });
 
@@ -50,11 +50,12 @@ interface ShopTopMenuProps {
   unitStore?: UnitStore;
   title?: string;
   description?: string;
-  titleStyle?: StyleProp<TextStyle>
+  titleStyle?: StyleProp<TextStyle>;
+  showSearch?: boolean;
 }
 
 export function ShopTopMenu(props: ShopTopMenuProps) {
-  const {unitStore, title, description, titleStyle} = props;
+  const {unitStore, title, description, titleStyle, showSearch = true} = props;
 
   const [showLeftView, setShowLeftView] = useState(true);
 
@@ -63,16 +64,24 @@ export function ShopTopMenu(props: ShopTopMenuProps) {
       <View style={style.contents}>
         <View
           style={[style.leftView, {display: showLeftView ? 'flex' : 'none'}]}>
-          <Text style={[style.title, titleStyle]}>{title || unitStore?.store.name}</Text>
-          <Text style={style.description}>{description || unitStore?.store.sector}</Text>
+          <Text style={[style.title, titleStyle]}>
+            {title || unitStore?.store.name}
+          </Text>
+          <Text style={style.description}>
+            {description || unitStore?.store.sector}
+          </Text>
         </View>
 
-        <Search
-          onFocus={() => setShowLeftView(false)}
-          onBlur={() => setShowLeftView(true)}
-          containerStyle={style.search}
-          placeholder="O que deseja buscar?"
-        />
+        {showSearch ? (
+          <Search
+            onFocus={() => setShowLeftView(false)}
+            onBlur={() => setShowLeftView(true)}
+            containerStyle={style.search}
+            placeholder="O que deseja buscar?"
+          />
+        ) : (
+          <View style={{flex: 1}} />
+        )}
 
         <TouchableOpacity
           style={{display: showLeftView ? 'flex' : 'none'}}

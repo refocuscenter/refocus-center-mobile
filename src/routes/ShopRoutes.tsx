@@ -40,10 +40,12 @@ export type ShopStackParamList = {
     unitStore: UnitStore;
     userAccountStore: UserAccountStore;
     services: ServiceXorCombo[];
+    basket: Basket;
   };
   ShopOffers: {
     unitStore: UnitStore;
     services: ServiceXorCombo[];
+    basket: Basket;
   };
   ShopBasket: {
     unitStore: UnitStore;
@@ -115,25 +117,25 @@ export default function ShopRoutes(props: ShopRoutesProps) {
           name="ShopHome"
           options={{tabBarIcon: togglableIcons.shopHome}}
           component={HomeShop}
-          initialParams={{...params}}
+          initialParams={params}
         />
         <Tab.Screen
           name="ShopOffers"
           options={{tabBarIcon: togglableIcons.shopOffers}}
           component={ShopOffers}
-          initialParams={{...params}}
+          initialParams={params}
         />
         <Tab.Screen
           name="ShopBasket"
           options={{tabBarIcon: togglableIcons.shopBasket}}
           component={ShopBasket}
-          initialParams={{...params}}
+          initialParams={params}
         />
         <Tab.Screen
           name="ShopInfo"
           options={{tabBarIcon: togglableIcons.shopInfo}}
           component={ShopInfo}
-          initialParams={{...params}}
+          initialParams={params}
         />
       </Tab.Navigator>
     </NavigationContainer>

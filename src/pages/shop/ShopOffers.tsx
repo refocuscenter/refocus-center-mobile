@@ -46,10 +46,11 @@ const style = StyleSheet.create({
     //backgroundColor: 'rgba(0, 0, 0, 0.5)',
     position: 'absolute',
     bottom: 0,
+    //backgroundColor: "red"
   },
   basketButton: {
     paddingRight: 20,
-    paddingTop: 30,
+    paddingTop: 10,
     paddingBottom: 10,
   },
 });
@@ -78,11 +79,11 @@ export default function ProductList(props: ShopOffersProps) {
       />
 
       <ViewGradient
-        gradient={colors.WhiteFadeDegrade}
+        gradient={{...colors.WhiteFadeDegrade, end: {x: 2, y: 0.4}}}
         style={style.basketButtonContainer}>
         <IconButton
           gradientProps={{gradient: colors.MainDegrade60White}}
-          touchableProps={{style: style.basketButton}}
+          touchableProps={{style: style.basketButton, onPress: () => navigation.navigate("ShopBasket", route.params)}}
           size={50}>
           <BasketSVG fill={colors.white} width="26" height="26" />
         </IconButton>

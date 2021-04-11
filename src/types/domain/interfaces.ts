@@ -21,7 +21,7 @@ export interface Basket {
 
 export interface BasketItem {
   totalValue?: number;
-  portions: Portion[];
+  portion: Portion;
 }
 
 /**

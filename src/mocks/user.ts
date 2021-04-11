@@ -1,6 +1,7 @@
 import {User} from '../types/domain/interfaces';
 import {randomInt} from '../utils/random';
 import {produtosMercadinho} from './productsCategories';
+import {kitCleanAllServicesAndCombos, kitCleanServicesOnly} from './services';
 import {kitCleanStore} from './store';
 
 function randomProductsAndPortions() {
@@ -28,7 +29,24 @@ export const user: User = {
       balance: 100.49,
       store: kitCleanStore,
       basket: {
-        basketItems: [{totalValue: 10, portions: randomProductsAndPortions()}],
+        basketItems: [
+          {
+            totalValue: 10,
+            portion: {amount: 2, offer: kitCleanServicesOnly.LAVA_COM_PRODUTO},
+          },
+          {
+            totalValue: 10,
+            portion: {amount: 2, offer: kitCleanAllServicesAndCombos[0]},
+          },
+          {
+            totalValue: 10,
+            portion: {amount: 2, offer: kitCleanAllServicesAndCombos[1]},
+          },
+          {
+            totalValue: 10,
+            portion: {amount: 2, offer: kitCleanServicesOnly.LAVA_SEM_PRODUTO},
+          },
+        ],
       },
     },
   ],

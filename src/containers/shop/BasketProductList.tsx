@@ -51,7 +51,7 @@ export interface basketProductProps {
 export function BasketProductList({ basket }: basketProductProps) {
 
     return <View style={style.mainView}>
-        {basket?.portions
+        {basket?.basketItems
             .map((portion, i) => 
                 <View key={"basket-product-list-" + i} style={[style.card, style.inlineView]}>
                     <Avatar.Image style={style.image} size={84} source={{ uri: portion.offer.image }} />

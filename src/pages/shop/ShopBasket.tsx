@@ -1,20 +1,40 @@
 import React from 'react';
 import {View, Text, ScrollView, StyleSheet, FlatList} from 'react-native';
-import {TextInput, Button, Avatar} from 'react-native-paper';
+import {TextInput, Button, Avatar, IconButton} from 'react-native-paper';
 import {BasketProductList} from '../../containers/shop/BasketProductList';
-import {colors, paperTheme} from '../../theme';
+import {colors, fonts, paperTheme} from '../../theme';
 import {Basket, BasketItem, UnitStore} from '../../types/domain/interfaces';
 import {user} from '../../mocks/user';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {ShopTopMenu} from '../../containers/shop/ShopTopMenu';
 import {StackScreenProps} from '@react-navigation/stack';
 import {ShopStackParamList} from '../../routes/ShopRoutes';
-import { TextGradient } from '../../components/TextGradient';
+import {TextGradient} from '../../components/TextGradient';
+import {OfferBasket} from '../../containers/shop/OfferBasket';
+import {ViewGradient} from '../../components/ViewGradient';
+import {ButtonGradient} from '../../components/ButtonGradient';
 
 const style = StyleSheet.create({
   main: {
     backgroundColor: colors.white,
     flex: 1,
+  },
+  offerBasket: {},
+  startOrderView: {
+    alignItems: 'center',
+    position: 'absolute',
+    width: '100%',
+    bottom: 0,
+    // backgroundColor: "red",
+  },
+  button: {
+    paddingHorizontal: 25,
+    marginVertical: 10,
+    marginTop: 20,
+  },
+  buttonText: {
+    fontFamily: fonts.semiBoldFontFamily,
+    fontSize: 14,
   },
 });
 
@@ -31,47 +51,27 @@ export default function ShopBasket(props: ShopBasketProps) {
         description={unitStore.name || unitStore.store.name}
         unitStore={unitStore}
         titleStyle={{fontSize: 15}}
+        showSearch={false}
       />
 
-      <OfferBasket basket={route.params.basket} />
-        
+      <OfferBasket
+        style={style.offerBasket}
+        basket={route.params.basket}
+        ListFooterComponent={<View style={{height: 60}} />}
+      />
+
+      <ViewGradient
+        gradient={{...colors.WhiteFadeDegrade, end: {x: 2, y: 0.35}}}
+        style={style.startOrderView}>
+        <ButtonGradient
+          viewGradientProps={{
+            gradient: colors.MainDegrade60White,
+          }}
+          textStyle={style.buttonText}
+          containerStyle={style.button}>
+          Iniciar Pedido
+        </ButtonGradient>
+      </ViewGradient>
     </SafeAreaView>
   );
-}
-
-const styleOfferBasket = StyleSheet.create({
-  main: {
-    marginHorizontal: 10,
-  },
-  item: {
-    margin: 4,
-  },
-});
-
-interface OfferBasketProps {
-  basket: Basket;
-}
-
-function OfferBasket(props: OfferBasketProps) {
-  return (
-    <FlatList
-      data={props.basket.basketItems}
-      keyExtractor={(_, i) => 'basket-item-' + i}
-      style={styleOfferBasket.main}
-      renderItem={createRenderItem(props)}
-      showsVerticalScrollIndicator={false}
-      showsHorizontalScrollIndicator={false}
-  
-    />
-  );
-}
-
-function createRenderItem(props: OfferBasketProps) {
-  return function renderItem({item}: {item: BasketItem}) {
-    return <View>
-      <TextGradient>
-        {JSON.stringify(item)}
-      </TextGradient>
-    </View>;
-  };
 }
