@@ -2,7 +2,7 @@ import { StyleProp, StyleSheet, Text, TextStyle, TouchableOpacity, TouchableOpac
 import { colors, fonts, actions } from '../theme';
 import { TextGradient, TextGradientProps } from './TextGradient';
 import React from 'react';
-import { ViewGradient } from './ViewGradient';
+import { ViewGradient, ViewGradientProps } from './ViewGradient';
 
 type ButtonGradientType = 'primary' | 'secondary';
 
@@ -11,6 +11,7 @@ interface ButtonGradientProps extends ViewProps {
 	textStyle?: StyleProp<TextStyle>;
 	containerStyle?: StyleProp<ViewStyle>;
 
+  viewGradientProps?: ViewGradientProps;
 	/**
 	 * Only for type = "secondary"
 	 */
@@ -64,13 +65,13 @@ export function ButtonGradient(props: ButtonGradientProps) {
 }
 
 function PrimaryButton(props: ButtonGradientProps) {
-	const { children, textStyle, containerStyle } = props
+	const { children, textStyle, containerStyle, viewGradientProps } = props
 
 	return <View {...props}>
 		<TouchableOpacity
 			activeOpacity={actions.activeOpacity}
 		>
-			<ViewGradient style={[style.primary.container, containerStyle]}>
+			<ViewGradient {...viewGradientProps} style={[style.primary.container, containerStyle]}>
 				<Text style={[style.primary.text, textStyle]}>{children}</Text>
 			</ViewGradient>
 		</TouchableOpacity>
@@ -80,13 +81,13 @@ function PrimaryButton(props: ButtonGradientProps) {
 
 function SecondaryButton(props: ButtonGradientProps) {
 
-	const { children, textStyle, containerStyle, borderWidth = 1 } = props
+	const { children, textStyle, containerStyle, borderWidth = 1, viewGradientProps } = props
 
 	return <View {...props}>
 		<TouchableOpacity
 			activeOpacity={actions.activeOpacity}
 		>
-			<ViewGradient style={
+			<ViewGradient {...viewGradientProps} style={
 				[
 					style.secondary.border,
 					(borderWidth ?
