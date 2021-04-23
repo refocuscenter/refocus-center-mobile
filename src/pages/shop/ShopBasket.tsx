@@ -42,7 +42,7 @@ type ShopBasketProps = StackScreenProps<ShopStackParamList, 'ShopBasket'>;
 
 export default function ShopBasket(props: ShopBasketProps) {
   const {route} = props;
-  const unitStore: UnitStore = route.params.unitStore;
+  const {unitStore, drawerNavigation} = route.params;
 
   return (
     <SafeAreaView style={style.main}>
@@ -52,6 +52,7 @@ export default function ShopBasket(props: ShopBasketProps) {
         unitStore={unitStore}
         titleStyle={{fontSize: 15}}
         showSearch={false}
+        drawerNavigation={drawerNavigation}
       />
 
       <OfferBasket
