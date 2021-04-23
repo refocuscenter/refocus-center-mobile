@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import ShopProfile from '../../containers/shop/ShopProfile';
 import IconIonicons from 'react-native-vector-icons/Ionicons';
@@ -19,6 +19,7 @@ import {ShopTopMenu} from '../../containers/shop/ShopTopMenu';
 import {OfferList} from '../../containers/shop/OfferList';
 import {Text} from '../../components/Text';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import {ShopDrawerContext} from '../../contexts/ShopDrawer';
 
 const style = StyleSheet.create({
   main: {
@@ -37,16 +38,16 @@ type ShopHomeProps = StackScreenProps<ShopStackParamList, 'ShopHome'>;
 
 export default function ShopHome(props: ShopHomeProps) {
   const {route, navigation} = props;
-  const {
-    unitStore,
-    userAccountStore,
-    services,
-    drawerNavigation,
-  } = route.params;
+  const {unitStore, userAccountStore, services} = route.params;
+
+  const {drawerNavigation} = useContext(ShopDrawerContext);
 
   return (
     <SafeAreaView style={style.main}>
-      <ShopTopMenu unitStore={unitStore} drawerNavigation={drawerNavigation} />
+      <ShopTopMenu
+        unitStore={unitStore}
+        drawerNavigation={drawerNavigation}
+      />
 
       <OfferList
         offers={services}

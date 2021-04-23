@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {View, Text, Image, StyleSheet} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import {Avatar, Button, Chip, TextInput} from 'react-native-paper';
@@ -26,6 +26,7 @@ import ShopProfile from '../../containers/shop/ShopProfile';
 import {IconButton} from '../../components/IconButton';
 import BasketSVG from '../../assets/images/icons/slim-shop-basket-icon.svg';
 import {ViewGradient} from '../../components/ViewGradient';
+import { ShopDrawerContext } from '../../contexts/ShopDrawer';
 
 const style = StyleSheet.create({
   main: {
@@ -59,7 +60,9 @@ type ShopOffersProps = StackScreenProps<ShopStackParamList, 'ShopOffers'>;
 
 export default function ProductList(props: ShopOffersProps) {
   const {route, navigation} = props;
-  const {unitStore, services, drawerNavigation} = route.params;
+  const {unitStore, services} = route.params;
+  const {drawerNavigation} = useContext(ShopDrawerContext);
+
 
   return (
     <SafeAreaView style={style.main}>

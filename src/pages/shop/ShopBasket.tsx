@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {View, Text, ScrollView, StyleSheet, FlatList} from 'react-native';
 import {TextInput, Button, Avatar, IconButton} from 'react-native-paper';
 import {BasketProductList} from '../../containers/shop/BasketProductList';
@@ -13,6 +13,7 @@ import {TextGradient} from '../../components/TextGradient';
 import {OfferBasket} from '../../containers/shop/OfferBasket';
 import {ViewGradient} from '../../components/ViewGradient';
 import {ButtonGradient} from '../../components/ButtonGradient';
+import { ShopDrawerContext } from '../../contexts/ShopDrawer';
 
 const style = StyleSheet.create({
   main: {
@@ -42,7 +43,8 @@ type ShopBasketProps = StackScreenProps<ShopStackParamList, 'ShopBasket'>;
 
 export default function ShopBasket(props: ShopBasketProps) {
   const {route} = props;
-  const {unitStore, drawerNavigation} = route.params;
+  const {unitStore} = route.params;
+  const {drawerNavigation} = useContext(ShopDrawerContext);
 
   return (
     <SafeAreaView style={style.main}>
