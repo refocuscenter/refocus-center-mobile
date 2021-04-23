@@ -8,7 +8,7 @@ import {user} from '../../mocks/user';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {ShopTopMenu} from '../../containers/shop/ShopTopMenu';
 import {StackScreenProps} from '@react-navigation/stack';
-import {ShopStackParamList} from '../../routes/ShopRoutes';
+import {ShopStackParamList} from '../../routes/ShopTabRoutes';
 import {TextGradient} from '../../components/TextGradient';
 import {OfferBasket} from '../../containers/shop/OfferBasket';
 import {ViewGradient} from '../../components/ViewGradient';

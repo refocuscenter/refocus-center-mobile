@@ -19,7 +19,7 @@ import {
 import {XOR} from '../../types/app/operators';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {StackScreenProps} from '@react-navigation/stack';
-import {ShopStackParamList} from '../../routes/ShopRoutes';
+import {ShopStackParamList} from '../../routes/ShopTabRoutes';
 import {ShopTopMenu} from '../../containers/shop/ShopTopMenu';
 import {OfferList} from '../../containers/shop/OfferList';
 import ShopProfile from '../../containers/shop/ShopProfile';
@@ -59,7 +59,7 @@ type ShopOffersProps = StackScreenProps<ShopStackParamList, 'ShopOffers'>;
 
 export default function ProductList(props: ShopOffersProps) {
   const {route, navigation} = props;
-  const {unitStore, services} = route.params;
+  const {unitStore, services, drawerNavigation} = route.params;
 
   return (
     <SafeAreaView style={style.main}>
@@ -67,6 +67,7 @@ export default function ProductList(props: ShopOffersProps) {
         title="Serviços"
         description={unitStore.name || unitStore.store.name}
         unitStore={unitStore}
+        drawerNavigation={drawerNavigation}
       />
 
       <OfferList

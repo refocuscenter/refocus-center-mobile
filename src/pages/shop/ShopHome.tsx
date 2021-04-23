@@ -14,7 +14,7 @@ import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommun
 import {IconGradient} from '../../components/IconGradient';
 import ShopHomeSVG from '../../assets/images/icons/slim-shop-home.svg';
 import {StackScreenProps} from '@react-navigation/stack';
-import {ShopStackParamList} from '../../routes/ShopRoutes';
+import {ShopStackParamList} from '../../routes/ShopTabRoutes';
 import {ShopTopMenu} from '../../containers/shop/ShopTopMenu';
 import {OfferList} from '../../containers/shop/OfferList';
 import {Text} from '../../components/Text';
@@ -37,11 +37,16 @@ type ShopHomeProps = StackScreenProps<ShopStackParamList, 'ShopHome'>;
 
 export default function ShopHome(props: ShopHomeProps) {
   const {route, navigation} = props;
-  const {unitStore, userAccountStore, services} = route.params;
+  const {
+    unitStore,
+    userAccountStore,
+    services,
+    drawerNavigation,
+  } = route.params;
 
   return (
     <SafeAreaView style={style.main}>
-      <ShopTopMenu unitStore={unitStore} />
+      <ShopTopMenu unitStore={unitStore} drawerNavigation={drawerNavigation} />
 
       <OfferList
         offers={services}

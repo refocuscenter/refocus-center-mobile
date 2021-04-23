@@ -16,6 +16,7 @@ import {UnitStore} from '../../types/domain/interfaces';
 import IconIonicons from 'react-native-vector-icons/Ionicons';
 import {actions, colors, fonts} from '../../theme';
 import {TextInput} from 'react-native';
+import { DrawerNavigation } from '../../routes/ShopTabRoutes';
 
 const style = StyleSheet.create({
   main: {
@@ -47,15 +48,23 @@ const style = StyleSheet.create({
 });
 
 interface ShopTopMenuProps {
+  drawerNavigation: DrawerNavigation;
   unitStore?: UnitStore;
   title?: string;
   description?: string;
-  titleStyle?: StyleProp<TextStyle>;
+  titleStyle?: StyleProp<TextStyle>;  
   showSearch?: boolean;
 }
 
 export function ShopTopMenu(props: ShopTopMenuProps) {
-  const {unitStore, title, description, titleStyle, showSearch = true} = props;
+  const {
+    unitStore,
+    title,
+    description,
+    titleStyle,
+    showSearch = true,
+    drawerNavigation,
+  } = props;
 
   const [showLeftView, setShowLeftView] = useState(true);
 
@@ -85,7 +94,8 @@ export function ShopTopMenu(props: ShopTopMenuProps) {
 
         <TouchableOpacity
           style={{display: showLeftView ? 'flex' : 'none'}}
-          activeOpacity={actions.activeOpacity}>
+          activeOpacity={actions.activeOpacity}
+          onPress={() => drawerNavigation.openDrawer()}>
           <IconGradient
             gradientProps={{gradient: colors.MainDegrade60}}
             gradientSize={{width: 48, height: 48}}>

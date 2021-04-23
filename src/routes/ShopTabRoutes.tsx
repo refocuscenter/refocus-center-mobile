@@ -4,7 +4,7 @@ import {
   BottomTabNavigationOptions,
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
-import HomeShop from '../pages/shop/ShopHome';
+import ShopHome from '../pages/shop/ShopHome';
 import ProductList from '../containers/shop/ProductList';
 import Help from '../pages/shop/ShopInfo';
 import IconIonicons from 'react-native-vector-icons/Ionicons';
@@ -14,7 +14,7 @@ import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import IconAnt from 'react-native-vector-icons/AntDesign';
 import IconFeather from 'react-native-vector-icons/Feather';
 import IndexRoutes from './index';
-import {createStackNavigator, StackScreenProps} from '@react-navigation/stack';
+import {createStackNavigator, StackNavigationProp, StackScreenProps} from '@react-navigation/stack';
 import {NavigationContainer, RouteProp} from '@react-navigation/native';
 import {
   Basket,
@@ -34,30 +34,8 @@ import ShopOffers from '../pages/shop/ShopOffers';
 import BasketSVG from '../assets/images/icons/slim-shop-basket-icon.svg';
 import ShopHomeSVG from '../assets/images/icons/slim-shop-home.svg';
 import {XOR} from '../types/app/operators';
-
-export type ShopStackParamList = {
-  ShopHome: {
-    unitStore: UnitStore;
-    userAccountStore: UserAccountStore;
-    services: ServiceXorCombo[];
-    basket: Basket;
-  };
-  ShopOffers: {
-    unitStore: UnitStore;
-    services: ServiceXorCombo[];
-    basket: Basket;
-  };
-  ShopBasket: {
-    unitStore: UnitStore;
-    services: ServiceXorCombo[];
-    basket: Basket;
-  };
-  ShopInfo: {};
-};
-
-type ShopRoutesProps = StackScreenProps<AppStackParamList, 'Shop'>;
-
-const Tab = createBottomTabNavigator<ShopStackParamList>();
+import ShopDrawerRoutes, { ShopDrawerRoutesParamList } from './ShopDrawerRoutes';
+import { DrawerNavigationProp, DrawerScreenProps } from '@react-navigation/drawer';
 
 const togglableIcons = {
   shopHome: createToggleIconGradient(
@@ -101,14 +79,46 @@ const style = {
       borderTopColor: colors.whiteF2,
       borderTopWidth: 1,
       height: 60,
-      marginHorizontal: -25
+      marginHorizontal: -25,
     },
-  } as BottomTabBarOptions
+  } as BottomTabBarOptions,
 };
 
-export default function ShopRoutes(props: ShopRoutesProps) {
+export type ShopStackParamList = {
+  ShopHome: {
+    unitStore: UnitStore;
+    userAccountStore: UserAccountStore;
+    services: ServiceXorCombo[];
+    basket: Basket;
+    drawerNavigation: DrawerNavigation;
+  };
+  ShopOffers: {
+    unitStore: UnitStore;
+    services: ServiceXorCombo[];
+    basket: Basket;
+    drawerNavigation: DrawerNavigation;
+  };
+  ShopBasket: {
+    unitStore: UnitStore;
+    services: ServiceXorCombo[];
+    basket: Basket;
+    drawerNavigation: DrawerNavigation;
+  };
+  ShopInfo: {};
+};
+
+type ShopTabRoutesProps = DrawerScreenProps<ShopDrawerRoutesParamList, 'ShopTabRoutes'>;
+
+export type DrawerNavigation = DrawerNavigationProp<ShopDrawerRoutesParamList, "ShopTabRoutes">
+
+const Tab = createBottomTabNavigator<ShopStackParamList>();
+
+export default function ShopTabRoutes(props: ShopTabRoutesProps) {
   //const {unitStore, userAccountStore, services} = props.route.params;
   const {params} = props.route;
+  const {navigation} = props;
+
+  const newParams = {...params, drawerNavigation: navigation}
 
   return (
     <NavigationContainer independent={true}>
@@ -116,26 +126,26 @@ export default function ShopRoutes(props: ShopRoutesProps) {
         <Tab.Screen
           name="ShopHome"
           options={{tabBarIcon: togglableIcons.shopHome}}
-          component={HomeShop}
-          initialParams={params}
+          component={ShopHome}
+          initialParams={newParams}
         />
         <Tab.Screen
           name="ShopOffers"
           options={{tabBarIcon: togglableIcons.shopOffers}}
           component={ShopOffers}
-          initialParams={params}
+          initialParams={newParams}
         />
         <Tab.Screen
           name="ShopBasket"
           options={{tabBarIcon: togglableIcons.shopBasket}}
           component={ShopBasket}
-          initialParams={params}
+          initialParams={newParams}
         />
         <Tab.Screen
           name="ShopInfo"
           options={{tabBarIcon: togglableIcons.shopInfo}}
           component={ShopInfo}
-          initialParams={params}
+          initialParams={newParams}
         />
       </Tab.Navigator>
     </NavigationContainer>
