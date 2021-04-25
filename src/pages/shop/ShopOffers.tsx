@@ -1,32 +1,16 @@
-import React, { useContext } from 'react';
-import {View, Text, Image, StyleSheet} from 'react-native';
-import {ScrollView} from 'react-native-gesture-handler';
-import {Avatar, Button, Chip, TextInput} from 'react-native-paper';
-import {colors, fonts, paperTheme} from '../../theme';
-import {
-  Combo,
-  Offer,
-  OfferXorCombo,
-  Product,
-  User,
-} from '../../types/domain/interfaces';
-import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {produtosMercadinho} from '../../mocks/productsCategories';
-import {
-  widthPercentageToDP as wd,
-  heightPercentageToDP as hg,
-} from 'react-native-responsive-screen';
-import {XOR} from '../../types/app/operators';
-import {SafeAreaView} from 'react-native-safe-area-context';
 import {StackScreenProps} from '@react-navigation/stack';
-import {ShopStackParamList} from '../../routes/ShopTabRoutes';
-import {ShopTopMenu} from '../../containers/shop/ShopTopMenu';
-import {OfferList} from '../../containers/shop/OfferList';
-import ShopProfile from '../../containers/shop/ShopProfile';
-import {IconButton} from '../../components/IconButton';
+import React, {useContext} from 'react';
+import {StyleSheet, View} from 'react-native';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import BasketSVG from '../../assets/images/icons/slim-shop-basket-icon.svg';
+import {IconButton} from '../../components/IconButton';
 import {ViewGradient} from '../../components/ViewGradient';
-import { ShopDrawerContext } from '../../contexts/ShopDrawer';
+import {OfferList} from '../../containers/shop/OfferList';
+import {ShopTopMenu} from '../../containers/shop/ShopTopMenu';
+import {ApplicationDataContext} from '../../contexts/ApplicationData';
+import {ShopDrawerContext} from '../../contexts/ShopDrawer';
+import {ShopStackParamList} from '../../routes/ShopTabRoutes';
+import {colors, fonts} from '../../theme';
 
 const style = StyleSheet.create({
   main: {
@@ -60,16 +44,19 @@ type ShopOffersProps = StackScreenProps<ShopStackParamList, 'ShopOffers'>;
 
 export default function ProductList(props: ShopOffersProps) {
   const {route, navigation} = props;
-  const {unitStore, services} = route.params;
+  const {unitStoreFetcher, servicesFetcher} = useContext(
+    ApplicationDataContext,
+  );
   const {drawerNavigation} = useContext(ShopDrawerContext);
 
+  const unitStore = unitStoreFetcher.data;
+  const services = servicesFetcher.data;
 
   return (
     <SafeAreaView style={style.main}>
       <ShopTopMenu
         title="Serviços"
-        description={unitStore.name || unitStore.store.name}
-        unitStore={unitStore}
+        description={unitStore?.name || unitStore?.store.name}
         drawerNavigation={drawerNavigation}
       />
 
@@ -87,7 +74,10 @@ export default function ProductList(props: ShopOffersProps) {
         style={style.basketButtonContainer}>
         <IconButton
           gradientProps={{gradient: colors.MainDegrade60White}}
-          touchableProps={{style: style.basketButton, onPress: () => navigation.navigate("ShopBasket", route.params)}}
+          touchableProps={{
+            style: style.basketButton,
+            onPress: () => navigation.navigate('ShopBasket', route.params),
+          }}
           size={50}>
           <BasketSVG fill={colors.white} width="26" height="26" />
         </IconButton>
@@ -97,9 +87,6 @@ export default function ProductList(props: ShopOffersProps) {
 }
 
 function Header(props: ShopOffersProps) {
-  const {route, navigation} = props;
-  const {unitStore, services} = route.params;
-
   return <View style={{paddingTop: 10}}></View>;
 }
 

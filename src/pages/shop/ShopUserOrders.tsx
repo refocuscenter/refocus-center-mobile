@@ -1,9 +1,8 @@
 import {DrawerScreenProps} from '@react-navigation/drawer';
-import React, { useContext } from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import React from 'react';
+import {StyleSheet, Text} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import { ShopTopMenu } from '../../containers/shop/ShopTopMenu';
-import { ShopDrawerContext } from '../../contexts/ShopDrawer';
+import {ShopTopMenu} from '../../containers/shop/ShopTopMenu';
 import {ShopDrawerRoutesParamList} from '../../routes/ShopDrawerRoutes';
 import {colors} from '../../theme';
 
@@ -20,18 +19,15 @@ type ShopUserOrdersProps = DrawerScreenProps<
 >;
 
 export default function ShopUserOrders(props: ShopUserOrdersProps) {
-
   return (
     <SafeAreaView style={style.main}>
       <ShopTopMenu
         title="Pedidos"
-        description={"Meus Pedidos"}
+        description={'Meus Pedidos'}
         drawerNavigation={props.navigation}
       />
 
-      <Text>
-        User Orders
-      </Text>
+      <Text>User Orders</Text>
     </SafeAreaView>
   );
 }

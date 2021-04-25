@@ -1,19 +1,15 @@
-import React, { useContext } from 'react';
-import {View, Text, ScrollView, StyleSheet, FlatList} from 'react-native';
-import {TextInput, Button, Avatar, IconButton} from 'react-native-paper';
-import {BasketProductList} from '../../containers/shop/BasketProductList';
-import {colors, fonts, paperTheme} from '../../theme';
-import {Basket, BasketItem, UnitStore} from '../../types/domain/interfaces';
-import {user} from '../../mocks/user';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {ShopTopMenu} from '../../containers/shop/ShopTopMenu';
 import {StackScreenProps} from '@react-navigation/stack';
-import {ShopStackParamList} from '../../routes/ShopTabRoutes';
-import {TextGradient} from '../../components/TextGradient';
-import {OfferBasket} from '../../containers/shop/OfferBasket';
-import {ViewGradient} from '../../components/ViewGradient';
+import React, {useContext} from 'react';
+import {StyleSheet, View} from 'react-native';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import {ButtonGradient} from '../../components/ButtonGradient';
-import { ShopDrawerContext } from '../../contexts/ShopDrawer';
+import {ViewGradient} from '../../components/ViewGradient';
+import {OfferBasket} from '../../containers/shop/OfferBasket';
+import {ShopTopMenu} from '../../containers/shop/ShopTopMenu';
+import {ApplicationDataContext} from '../../contexts/ApplicationData';
+import {ShopDrawerContext} from '../../contexts/ShopDrawer';
+import {ShopStackParamList} from '../../routes/ShopTabRoutes';
+import {colors, fonts} from '../../theme';
 
 const style = StyleSheet.create({
   main: {
@@ -42,16 +38,17 @@ const style = StyleSheet.create({
 type ShopBasketProps = StackScreenProps<ShopStackParamList, 'ShopBasket'>;
 
 export default function ShopBasket(props: ShopBasketProps) {
-  const {route} = props;
-  const {unitStore} = route.params;
+  const {unitStoreFetcher, basketFetcher} = useContext(ApplicationDataContext);
   const {drawerNavigation} = useContext(ShopDrawerContext);
+
+  const unitStore = unitStoreFetcher.data;
+  const basket = basketFetcher.data;
 
   return (
     <SafeAreaView style={style.main}>
       <ShopTopMenu
         title="Sua Cesta"
-        description={unitStore.name || unitStore.store.name}
-        unitStore={unitStore}
+        description={unitStore?.name || unitStore?.store.name}
         titleStyle={{fontSize: 15}}
         showSearch={false}
         drawerNavigation={drawerNavigation}
@@ -59,7 +56,7 @@ export default function ShopBasket(props: ShopBasketProps) {
 
       <OfferBasket
         style={style.offerBasket}
-        basket={route.params.basket}
+        basket={basket}
         ListFooterComponent={<View style={{height: 60}} />}
       />
 

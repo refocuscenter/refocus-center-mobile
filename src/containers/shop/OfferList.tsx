@@ -1,21 +1,15 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {
-  ScrollView,
-  StyleProp,
-  StyleSheet,
-  View,
-  ViewStyle,
   FlatList,
   FlatListProps,
   GestureResponderEvent,
+  StyleProp,
+  StyleSheet,
+  ViewStyle,
 } from 'react-native';
 import {BlankItem} from '../../components/shop/BlankItem';
 import {OfferItem} from '../../components/shop/OfferItem';
-import {TextGradient} from '../../components/TextGradient';
-import {ViewGradient} from '../../components/ViewGradient';
-import {colors} from '../../theme';
-import {XOR} from '../../types/app/operators';
-import {Combo, Offer, OfferXorCombo} from '../../types/domain/interfaces';
+import {OfferXorCombo} from '../../types/domain/interfaces';
 
 const style = StyleSheet.create({
   main: {
@@ -27,7 +21,7 @@ const style = StyleSheet.create({
 });
 
 interface OfferListProps extends Partial<FlatListProps<any>> {
-  offers: OfferXorCombo[];
+  offers?: OfferXorCombo[];
   limit?: number;
   style?: StyleProp<ViewStyle>;
 
@@ -38,8 +32,6 @@ interface OfferListProps extends Partial<FlatListProps<any>> {
 }
 
 export function OfferList(props: OfferListProps) {
-  const {offers, limit} = props;
-
   return (
     <FlatList
       numColumns={2}
@@ -57,6 +49,8 @@ export function OfferList(props: OfferListProps) {
 function createItems(props: OfferListProps): OfferXorCombo[] {
   const {offers, limit} = props;
 
+  if (!offers) return [];
+
   return limitItems(offers, limit).map((o, i, arr) =>
     limit && i == limit - 1 ? 'see-more' : o,
   );
@@ -65,16 +59,9 @@ function createItems(props: OfferListProps): OfferXorCombo[] {
 function createRenderItem(props: OfferListProps) {
   const {seeMoreItemOnPress} = props;
 
-  return function renderItem({
-    item,
-  }: {
-    item: OfferXorCombo | 'see-more';
-  }) {
+  return function renderItem({item}: {item: OfferXorCombo | 'see-more'}) {
     return item !== 'see-more' ? (
-      <OfferItem
-        containerStyle={style.item}
-        offer={item as OfferXorCombo}
-      />
+      <OfferItem containerStyle={style.item} offer={item as OfferXorCombo} />
     ) : (
       <BlankItem onPress={seeMoreItemOnPress} containerStyle={style.item}>
         Ver mais

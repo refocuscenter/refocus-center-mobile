@@ -1,22 +1,21 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {
   Keyboard,
   StyleProp,
   StyleSheet,
+  TextInput,
   TextInputProps,
   TextStyle,
   TouchableOpacity,
   View,
-  ViewProps,
   ViewStyle,
 } from 'react-native';
+import IconIonicons from 'react-native-vector-icons/Ionicons';
 import {IconGradient} from '../../components/IconGradient';
 import {Text} from '../../components/Text';
-import {UnitStore} from '../../types/domain/interfaces';
-import IconIonicons from 'react-native-vector-icons/Ionicons';
+import {ApplicationDataContext} from '../../contexts/ApplicationData';
+import {DrawerNavigation} from '../../routes/ShopTabRoutes';
 import {actions, colors, fonts} from '../../theme';
-import {TextInput} from 'react-native';
-import { DrawerNavigation } from '../../routes/ShopTabRoutes';
 
 const style = StyleSheet.create({
   main: {
@@ -49,16 +48,14 @@ const style = StyleSheet.create({
 
 interface ShopTopMenuProps {
   drawerNavigation: DrawerNavigation;
-  unitStore?: UnitStore;
   title?: string;
   description?: string;
-  titleStyle?: StyleProp<TextStyle>;  
+  titleStyle?: StyleProp<TextStyle>;
   showSearch?: boolean;
 }
 
 export function ShopTopMenu(props: ShopTopMenuProps) {
   const {
-    unitStore,
     title,
     description,
     titleStyle,
@@ -67,6 +64,10 @@ export function ShopTopMenu(props: ShopTopMenuProps) {
   } = props;
 
   const [showLeftView, setShowLeftView] = useState(true);
+
+  const {unitStoreFetcher} = useContext(ApplicationDataContext);
+
+  const unitStore = unitStoreFetcher.data;
 
   return (
     <View style={style.main}>

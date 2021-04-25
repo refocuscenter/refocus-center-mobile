@@ -1,49 +1,24 @@
-import React from 'react';
 import {
   BottomTabBarOptions,
-  BottomTabNavigationOptions,
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
-import ShopHome from '../pages/shop/ShopHome';
-import ProductList from '../containers/shop/ProductList';
-import Help from '../pages/shop/ShopInfo';
-import IconIonicons from 'react-native-vector-icons/Ionicons';
-import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import IconSimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
-import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import IconAnt from 'react-native-vector-icons/AntDesign';
-import IconFeather from 'react-native-vector-icons/Feather';
-import IndexRoutes from './index';
-import {
-  createStackNavigator,
-  StackNavigationProp,
-  StackScreenProps,
-} from '@react-navigation/stack';
-import {NavigationContainer, RouteProp} from '@react-navigation/native';
-import {
-  Basket,
-  Combo,
-  Service,
-  ServiceXorCombo,
-  UnitStore,
-  UserAccountStore,
-} from '../types/domain/interfaces';
-import {AppStackParamList} from './AppRoutes';
-import ShopInfo from '../pages/shop/ShopInfo';
-import ShopBasket from '../pages/shop/ShopBasket';
-import {colors} from '../theme';
-import {IconGradient, IconGradientProps} from '../components/IconGradient';
-import {createToggleIconGradient} from '../utils/toggleIcons';
-import ShopOffers from '../pages/shop/ShopOffers';
-import BasketSVG from '../assets/images/icons/slim-shop-basket-icon.svg';
-import ShopHomeSVG from '../assets/images/icons/slim-shop-home.svg';
-import {XOR} from '../types/app/operators';
-import ShopDrawerRoutes, {ShopDrawerRoutesParamList} from './ShopDrawerRoutes';
 import {
   DrawerNavigationProp,
   DrawerScreenProps,
 } from '@react-navigation/drawer';
+import {NavigationContainer} from '@react-navigation/native';
+import React from 'react';
+import IconIonicons from 'react-native-vector-icons/Ionicons';
+import BasketSVG from '../assets/images/icons/slim-shop-basket-icon.svg';
+import ShopHomeSVG from '../assets/images/icons/slim-shop-home.svg';
 import {ShopDrawerContext} from '../contexts/ShopDrawer';
+import ShopBasket from '../pages/shop/ShopBasket';
+import ShopHome from '../pages/shop/ShopHome';
+import ShopInfo from '../pages/shop/ShopInfo';
+import ShopOffers from '../pages/shop/ShopOffers';
+import {colors} from '../theme';
+import {createToggleIconGradient} from '../utils/toggleIcons';
+import {ShopDrawerRoutesParamList} from './ShopDrawerRoutes';
 
 const togglableIcons = {
   shopHome: createToggleIconGradient(
@@ -92,26 +67,6 @@ const style = {
   } as BottomTabBarOptions,
 };
 
-export type ShopStackParamList = {
-  ShopHome: {
-    unitStore: UnitStore;
-    userAccountStore: UserAccountStore;
-    services: ServiceXorCombo[];
-    basket: Basket;
-  };
-  ShopOffers: {
-    unitStore: UnitStore;
-    services: ServiceXorCombo[];
-    basket: Basket;
-  };
-  ShopBasket: {
-    unitStore: UnitStore;
-    services: ServiceXorCombo[];
-    basket: Basket;
-  };
-  ShopInfo: {};
-};
-
 type ShopTabRoutesProps = DrawerScreenProps<
   ShopDrawerRoutesParamList,
   'ShopTabRoutes'
@@ -119,11 +74,17 @@ type ShopTabRoutesProps = DrawerScreenProps<
 
 export type DrawerNavigation = DrawerNavigationProp<ShopDrawerRoutesParamList>;
 
+export type ShopStackParamList = {
+  ShopHome: {};
+  ShopOffers: {};
+  ShopBasket: {};
+  ShopInfo: {};
+};
+
 const Tab = createBottomTabNavigator<ShopStackParamList>();
 
 export default function ShopTabRoutes(props: ShopTabRoutesProps) {
   //const {unitStore, userAccountStore, services} = props.route.params;
-  const {params} = props.route;
   const {navigation} = props;
 
   return (
@@ -134,25 +95,21 @@ export default function ShopTabRoutes(props: ShopTabRoutesProps) {
             name="ShopHome"
             options={{tabBarIcon: togglableIcons.shopHome}}
             component={ShopHome}
-            initialParams={params}
           />
           <Tab.Screen
             name="ShopOffers"
             options={{tabBarIcon: togglableIcons.shopOffers}}
             component={ShopOffers}
-            initialParams={params}
           />
           <Tab.Screen
             name="ShopBasket"
             options={{tabBarIcon: togglableIcons.shopBasket}}
             component={ShopBasket}
-            initialParams={params}
           />
           <Tab.Screen
             name="ShopInfo"
             options={{tabBarIcon: togglableIcons.shopInfo}}
             component={ShopInfo}
-            initialParams={params}
           />
         </Tab.Navigator>
       </ShopDrawerContext.Provider>

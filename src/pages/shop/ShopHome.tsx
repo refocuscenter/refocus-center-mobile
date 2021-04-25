@@ -1,25 +1,15 @@
-import React, {useContext, useState} from 'react';
-import {StyleSheet, View} from 'react-native';
-import ShopProfile from '../../containers/shop/ShopProfile';
-import IconIonicons from 'react-native-vector-icons/Ionicons';
-import IconAntDesign from 'react-native-vector-icons/AntDesign';
-import CardTransaction from '../../containers/shop/CardTransaction';
-import {Button} from 'react-native-paper';
-import {UnitStore, UserAccountStore} from '../../types/domain/interfaces';
-import {ScrollView} from 'react-native-gesture-handler';
-import {colors, fonts} from '../../theme';
-import MaskedView from '@react-native-community/masked-view';
-import {ViewGradient} from '../../components/ViewGradient';
-import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {IconGradient} from '../../components/IconGradient';
-import ShopHomeSVG from '../../assets/images/icons/slim-shop-home.svg';
 import {StackScreenProps} from '@react-navigation/stack';
-import {ShopStackParamList} from '../../routes/ShopTabRoutes';
-import {ShopTopMenu} from '../../containers/shop/ShopTopMenu';
-import {OfferList} from '../../containers/shop/OfferList';
-import {Text} from '../../components/Text';
+import React, {useContext} from 'react';
+import {StyleSheet, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import {Text} from '../../components/Text';
+import {OfferList} from '../../containers/shop/OfferList';
+import ShopProfile from '../../containers/shop/ShopProfile';
+import {ShopTopMenu} from '../../containers/shop/ShopTopMenu';
+import {ApplicationDataContext} from '../../contexts/ApplicationData';
 import {ShopDrawerContext} from '../../contexts/ShopDrawer';
+import {ShopStackParamList} from '../../routes/ShopTabRoutes';
+import {colors, fonts} from '../../theme';
 
 const style = StyleSheet.create({
   main: {
@@ -38,19 +28,15 @@ type ShopHomeProps = StackScreenProps<ShopStackParamList, 'ShopHome'>;
 
 export default function ShopHome(props: ShopHomeProps) {
   const {route, navigation} = props;
-  const {unitStore, userAccountStore, services} = route.params;
-
+  const {servicesFetcher} = useContext(ApplicationDataContext);
   const {drawerNavigation} = useContext(ShopDrawerContext);
 
   return (
     <SafeAreaView style={style.main}>
-      <ShopTopMenu
-        unitStore={unitStore}
-        drawerNavigation={drawerNavigation}
-      />
+      <ShopTopMenu drawerNavigation={drawerNavigation} />
 
       <OfferList
-        offers={services}
+        offers={servicesFetcher.data}
         limit={4}
         ListHeaderComponent={Header(props)}
         ListFooterComponent={Footer(props)}
@@ -63,13 +49,18 @@ export default function ShopHome(props: ShopHomeProps) {
 }
 
 function Header(props: ShopHomeProps) {
-  const {route, navigation} = props;
-  const {unitStore, userAccountStore, services} = route.params;
+  const {servicesFetcher} = useContext(ApplicationDataContext);
 
   return (
     <View>
-      <ShopProfile unitStore={unitStore} userAccountStore={userAccountStore} />
-      <Text style={style.serviceText}>Serviços</Text>
+      <ShopProfile />
+      <Text
+        style={[
+          style.serviceText,
+          {display: servicesFetcher.data ? 'flex' : 'none'},
+        ]}>
+        Serviços
+      </Text>
     </View>
   );
 }

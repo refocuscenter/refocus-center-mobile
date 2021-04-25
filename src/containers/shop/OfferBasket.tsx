@@ -1,7 +1,6 @@
 import React from 'react';
 import {FlatList, FlatListProps, StyleSheet, View} from 'react-native';
 import {BasketItemComponent} from '../../components/shop/BasketItem';
-import {TextGradient} from '../../components/TextGradient';
 import {Basket, BasketItem} from '../../types/domain/interfaces';
 
 const style = StyleSheet.create({
@@ -14,10 +13,12 @@ const style = StyleSheet.create({
 });
 
 export interface OfferBasketProps extends Partial<FlatListProps<BasketItem>> {
-  basket: Basket;
+  basket?: Basket;
 }
 
 export function OfferBasket(props: OfferBasketProps) {
+  if (!props.basket) return <View />;
+
   return (
     <FlatList
       data={props.basket.basketItems}

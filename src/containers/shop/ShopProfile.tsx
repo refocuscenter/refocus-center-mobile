@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
-import {View, StyleSheet} from 'react-native';
+import React, {useContext, useState} from 'react';
+import {StyleSheet, View} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {CircleImage} from '../../components/CircleImage';
 import {Text} from '../../components/Text';
+import {ApplicationDataContext} from '../../contexts/ApplicationData';
 import {colors, fonts} from '../../theme';
-import {UnitStore, UserAccountStore} from '../../types/domain/interfaces';
-import { toBRL } from '../../utils/quotation';
+import {toBRL} from '../../utils/quotation';
 
 const style = StyleSheet.create({
   main: {
@@ -40,36 +40,42 @@ const style = StyleSheet.create({
 });
 
 interface ShopProfileProps {
-  unitStore: UnitStore;
-  userAccountStore: UserAccountStore;
-  [key: string]: any;
+  // [key: string]: any;
 }
 
-export default function ShopProfile({
-  unitStore,
-  userAccountStore,
-}: ShopProfileProps) {
-  const [balance, setBalance] = useState(toBRL(userAccountStore.balance));
-  const [showBalance, setshowBalance] = useState(true);
+export default function ShopProfile(props: ShopProfileProps) {
+  const [balance, setBalance] = useState('*********');
+  const [showBalance, setShowBalance] = useState(false);
+
+  const {unitStoreFetcher, userAccountStoreFetcher} = useContext(
+    ApplicationDataContext,
+  );
+
+  const unitStore = unitStoreFetcher.data;
+  const userAccountStore = userAccountStoreFetcher.data;
 
   function replaceBalance() {
-    setshowBalance(!showBalance);
+    if (!userAccountStore) return;
+
+    setShowBalance(!showBalance);
+
     if (showBalance) {
       let cif = '';
-      for (let i = 0; i < balance.length; i++) {
-        cif += '*';
-      }
+      for (let i = 0; i < balance.length; i++) cif += '*';
+
       setBalance(cif);
     } else {
-      setBalance(
-        toBRL(userAccountStore.balance)
-      );
+      setBalance(toBRL(userAccountStore.balance));
     }
   }
 
   return (
     <View style={style.main}>
-      <CircleImage hasStatus={false} size={130} uri={unitStore.store.image} />
+      <CircleImage
+        hasStatus={false}
+        size={130}
+        uri={unitStore ? unitStore.store.image : ''}
+      />
       <View style={style.balanceContainer}>
         <Text style={style.balanceText}>Seu saldo</Text>
         <View style={style.balance}>
