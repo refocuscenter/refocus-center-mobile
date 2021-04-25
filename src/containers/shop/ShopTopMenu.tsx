@@ -13,7 +13,7 @@ import {
 import IconIonicons from 'react-native-vector-icons/Ionicons';
 import {IconGradient} from '../../components/IconGradient';
 import {Text} from '../../components/Text';
-import {ApplicationDataContext} from '../../contexts/ApplicationData';
+import {StorePagesContext} from '../../contexts/StorePages';
 import {DrawerNavigation} from '../../routes/ShopTabRoutes';
 import {actions, colors, fonts} from '../../theme';
 
@@ -65,9 +65,9 @@ export function ShopTopMenu(props: ShopTopMenuProps) {
 
   const [showLeftView, setShowLeftView] = useState(true);
 
-  const {unitStoreFetcher} = useContext(ApplicationDataContext);
+  const {unitStoreQuery} = useContext(StorePagesContext);
 
-  const unitStore = unitStoreFetcher.data;
+  const unitStore = unitStoreQuery.data;
 
   return (
     <View style={style.main}>

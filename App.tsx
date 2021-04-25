@@ -1,16 +1,18 @@
 import {NavigationContainer} from '@react-navigation/native';
 import React from 'react';
-import {ApplicationDataProvider} from './src/contexts/ApplicationData';
+import {QueryClient, QueryClientProvider} from 'react-query';
 import {AuthProvider} from './src/contexts/Auth';
 import Routes from './src/routes/index';
 export default function App() {
+  const queryClient = new QueryClient();
+
   return (
     <NavigationContainer>
-      <ApplicationDataProvider isMockData={false}>
+      <QueryClientProvider client={queryClient}>
         <AuthProvider>
           <Routes />
         </AuthProvider>
-      </ApplicationDataProvider>
+      </QueryClientProvider>
     </NavigationContainer>
   );
 }

@@ -3,7 +3,7 @@ import {StyleSheet, View} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {CircleImage} from '../../components/CircleImage';
 import {Text} from '../../components/Text';
-import {ApplicationDataContext} from '../../contexts/ApplicationData';
+import {StorePagesContext} from '../../contexts/StorePages';
 import {colors, fonts} from '../../theme';
 import {toBRL} from '../../utils/quotation';
 
@@ -47,12 +47,10 @@ export default function ShopProfile(props: ShopProfileProps) {
   const [balance, setBalance] = useState('*********');
   const [showBalance, setShowBalance] = useState(false);
 
-  const {unitStoreFetcher, userAccountStoreFetcher} = useContext(
-    ApplicationDataContext,
-  );
+  const {unitStoreQuery, userAccountStoreQuery} = useContext(StorePagesContext);
 
-  const unitStore = unitStoreFetcher.data;
-  const userAccountStore = userAccountStoreFetcher.data;
+  const unitStore = unitStoreQuery.data;
+  const userAccountStore = userAccountStoreQuery.data;
 
   function replaceBalance() {
     if (!userAccountStore) return;

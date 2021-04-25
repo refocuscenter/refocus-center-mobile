@@ -1,25 +1,16 @@
-import React, {useState} from 'react';
-import {
-  GestureResponderEvent,
-  Image,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import {actions, colors, fonts} from '../../theme';
-import {Combo, Offer, OfferXorCombo} from '../../types/domain/interfaces';
-import {Text} from '../Text';
-import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import Entypo from 'react-native-vector-icons/Entypo';
-import {XOR} from '../../types/app/operators';
-import {ViewGradient, ViewGradientProps} from '../ViewGradient';
-import {toBRL} from '../../utils/quotation';
-import {TextGradient} from '../TextGradient';
-import {ComboImages} from './ComboImages';
+import React, {useEffect, useRef, useState} from 'react';
+import {Image, StyleSheet, View} from 'react-native';
 import {IconButtonProps} from 'react-native-vector-icons/Icon';
+import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import {colors, fonts} from '../../theme';
+import {Combo, Offer, OfferXorCombo} from '../../types/domain/interfaces';
+import {toBRL} from '../../utils/quotation';
 import {IconButton} from '../IconButton';
-import {IconGradient} from '../IconGradient';
+import {Text} from '../Text';
+import {TextGradient} from '../TextGradient';
+import {ViewGradient, ViewGradientProps} from '../ViewGradient';
 import {AmountView} from './AmountView';
+import {ComboImages} from './ComboImages';
 
 const style = StyleSheet.create({
   mainView: {
@@ -70,14 +61,39 @@ export interface OfferItemProps extends ViewGradientProps {
   offer: OfferXorCombo;
   amountState?: [number, React.Dispatch<React.SetStateAction<number>>];
   iconButtonProps?: IconButtonProps;
+  onIncreaseAmount?: Function;
+  onDecreaseAmount?: Function;
+}
+
+function usePrevious(value: any) {
+  const ref = useRef<typeof value>();
+  useEffect(() => {
+    ref.current = value;
+  });
+  return ref.current;
 }
 
 export function OfferItem(props: OfferItemProps) {
-  const {offer, iconButtonProps, amountState = useState(0)} = props;
+  const {
+    offer,
+    iconButtonProps,
+    amountState = useState(0),
+    onIncreaseAmount,
+    onDecreaseAmount,
+  } = props;
 
   const [amount, setAmount] = amountState;
+  const previousAmount = usePrevious(amount);
 
   const isCombo = offer.offers != undefined;
+
+  useEffect(() => {
+    if (previousAmount > amount) {
+      onDecreaseAmount && onDecreaseAmount();
+    } else if (previousAmount < amount) {
+      onIncreaseAmount && onIncreaseAmount();
+    }
+  }, [amount]);
 
   return (
     <ViewGradient

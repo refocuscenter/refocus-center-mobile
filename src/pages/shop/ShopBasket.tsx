@@ -6,8 +6,8 @@ import {ButtonGradient} from '../../components/ButtonGradient';
 import {ViewGradient} from '../../components/ViewGradient';
 import {OfferBasket} from '../../containers/shop/OfferBasket';
 import {ShopTopMenu} from '../../containers/shop/ShopTopMenu';
-import {ApplicationDataContext} from '../../contexts/ApplicationData';
 import {ShopDrawerContext} from '../../contexts/ShopDrawer';
+import {StorePagesContext} from '../../contexts/StorePages';
 import {ShopStackParamList} from '../../routes/ShopTabRoutes';
 import {colors, fonts} from '../../theme';
 
@@ -38,11 +38,11 @@ const style = StyleSheet.create({
 type ShopBasketProps = StackScreenProps<ShopStackParamList, 'ShopBasket'>;
 
 export default function ShopBasket(props: ShopBasketProps) {
-  const {unitStoreFetcher, basketFetcher} = useContext(ApplicationDataContext);
+  const {unitStoreQuery, basketQuery} = useContext(StorePagesContext);
   const {drawerNavigation} = useContext(ShopDrawerContext);
 
-  const unitStore = unitStoreFetcher.data;
-  const basket = basketFetcher.data;
+  const unitStore = unitStoreQuery.data;
+  const basket = basketQuery.data;
 
   return (
     <SafeAreaView style={style.main}>

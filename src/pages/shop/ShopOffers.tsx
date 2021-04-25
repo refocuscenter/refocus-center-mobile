@@ -7,8 +7,8 @@ import {IconButton} from '../../components/IconButton';
 import {ViewGradient} from '../../components/ViewGradient';
 import {OfferList} from '../../containers/shop/OfferList';
 import {ShopTopMenu} from '../../containers/shop/ShopTopMenu';
-import {ApplicationDataContext} from '../../contexts/ApplicationData';
 import {ShopDrawerContext} from '../../contexts/ShopDrawer';
+import {StorePagesContext} from '../../contexts/StorePages';
 import {ShopStackParamList} from '../../routes/ShopTabRoutes';
 import {colors, fonts} from '../../theme';
 
@@ -44,13 +44,11 @@ type ShopOffersProps = StackScreenProps<ShopStackParamList, 'ShopOffers'>;
 
 export default function ProductList(props: ShopOffersProps) {
   const {route, navigation} = props;
-  const {unitStoreFetcher, servicesFetcher} = useContext(
-    ApplicationDataContext,
-  );
+  const {unitStoreQuery, unitStoreOffersQuery} = useContext(StorePagesContext);
   const {drawerNavigation} = useContext(ShopDrawerContext);
 
-  const unitStore = unitStoreFetcher.data;
-  const services = servicesFetcher.data;
+  const unitStore = unitStoreQuery.data;
+  const offers = unitStoreOffersQuery.data;
 
   return (
     <SafeAreaView style={style.main}>
@@ -61,7 +59,7 @@ export default function ProductList(props: ShopOffersProps) {
       />
 
       <OfferList
-        offers={services}
+        offers={offers}
         ListHeaderComponent={Header(props)}
         ListFooterComponent={Footer(props)}
         seeMoreItemOnPress={() =>

@@ -9,7 +9,8 @@ import {
 } from 'react-native';
 import {BlankItem} from '../../components/shop/BlankItem';
 import {OfferItem} from '../../components/shop/OfferItem';
-import {OfferXorCombo} from '../../types/domain/interfaces';
+import {useCreateBasketItem} from '../../hooks/basket';
+import {BasketItem, OfferXorCombo} from '../../types/domain/interfaces';
 
 const style = StyleSheet.create({
   main: {
@@ -59,9 +60,23 @@ function createItems(props: OfferListProps): OfferXorCombo[] {
 function createRenderItem(props: OfferListProps) {
   const {seeMoreItemOnPress} = props;
 
+  function createInsertBasket(offer: OfferXorCombo) {
+    return function insert() {
+      const basketItem: BasketItem = {
+        portion: {amount: 1, offer: offer},
+        totalValue: offer.value,
+      };
+      useCreateBasketItem(1, basketItem);
+    };
+  }
+
   return function renderItem({item}: {item: OfferXorCombo | 'see-more'}) {
     return item !== 'see-more' ? (
-      <OfferItem containerStyle={style.item} offer={item as OfferXorCombo} />
+      <OfferItem
+        containerStyle={style.item}
+        offer={item as OfferXorCombo}
+        onIncreaseAmount={createInsertBasket(item)}
+      />
     ) : (
       <BlankItem onPress={seeMoreItemOnPress} containerStyle={style.item}>
         Ver mais
