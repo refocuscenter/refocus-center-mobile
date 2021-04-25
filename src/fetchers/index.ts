@@ -15,9 +15,13 @@ export class Fetcher<Data> {
   dataStatus: DataStatus = DataStatus.Fetching;
 }
 
-export async function fetchData(setData: Dispatch<ApplicationData>) {
+export async function fetchData(
+  dataRef: {current: ApplicationData},
+  setData: Dispatch<ApplicationData>,
+) {
   setTimeout(() => {
     setData({
+      ...dataRef.current,
       basketFetcher: {
         data: user.userAccountInStore[0].basket,
         dataStatus: DataStatus.OK,
@@ -26,6 +30,12 @@ export async function fetchData(setData: Dispatch<ApplicationData>) {
         data: kitCleanAllServicesAndCombos,
         dataStatus: DataStatus.OK,
       },
+    });
+  }, 5000);
+
+  setTimeout(() => {
+    setData({
+      ...dataRef.current,
       unitStoreFetcher: {
         data: kitCleanUnit1,
         dataStatus: DataStatus.OK,
@@ -35,5 +45,5 @@ export async function fetchData(setData: Dispatch<ApplicationData>) {
         dataStatus: DataStatus.OK,
       },
     });
-  }, 5000);
+  }, 10000);
 }

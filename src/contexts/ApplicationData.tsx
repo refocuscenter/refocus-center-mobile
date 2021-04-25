@@ -1,4 +1,4 @@
-import React, {createContext, useEffect, useState} from 'react';
+import React, {createContext, useEffect, useRef, useState} from 'react';
 import {fetchData, Fetcher} from '../fetchers';
 import {mockData} from '../mocks';
 import {
@@ -32,11 +32,14 @@ export function ApplicationDataProvider({
 }: ApplicationDataProviderProps) {
   const [data, setData] = useState(defaultApplicationData);
 
+  const dataRef = useRef(data);
+  dataRef.current = data;
+
   useEffect(() => {
     if (isMockData) {
       mockData(setData);
     } else {
-      fetchData(setData);
+      fetchData(dataRef, setData).catch(err => console.error(err));
     }
   }, []);
 

@@ -6,7 +6,7 @@ import Routes from './src/routes/index';
 export default function App() {
   return (
     <NavigationContainer>
-      <ApplicationDataProvider isMockData={true}>
+      <ApplicationDataProvider isMockData={false}>
         <AuthProvider>
           <Routes />
         </AuthProvider>
