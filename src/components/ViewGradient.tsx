@@ -1,12 +1,10 @@
-import {Gradient} from '../types/app/theme';
-import {colors, fonts} from '../theme';
 import React from 'react';
-import {LinearTextGradient} from 'react-native-text-gradient';
-import {Text} from 'react-native-paper';
-import {StyleProp, StyleSheet, TextStyle, View, ViewStyle} from 'react-native';
+import {StyleProp, View, ViewStyle} from 'react-native';
 import LinearGradient, {
   LinearGradientProps,
 } from 'react-native-linear-gradient';
+import {colors} from '../theme';
+import {Gradient} from '../types/app/theme';
 
 export type GradientType = 'primary' | 'secondary';
 
@@ -71,9 +69,7 @@ function SecondaryViewGradient(props: ViewGradientProps) {
       end={gradient.end}
       colors={gradient.colors}
       style={[getGradientStyle(borderRadius, borderWidth), containerStyle]}>
-      <View
-        {...props}
-        style={[getContainerStyle(borderRadius), props.style]}>
+      <View {...props} style={[getContainerStyle(borderRadius), props.style]}>
         {children}
       </View>
     </LinearGradient>

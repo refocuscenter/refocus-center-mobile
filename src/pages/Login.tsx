@@ -1,22 +1,14 @@
-import React, { useState, useContext } from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
-import { TextInput, Button } from 'react-native-paper';
-import { paperTheme, colors, fonts } from '../theme';
-import AuthContext from '../contexts/Auth';
-import { LinearTextGradient } from 'react-native-text-gradient';
-
-import LogoSVG from '../assets/images/refocus-center-logo.svg';
+import React, {useContext, useState} from 'react';
+import {StyleSheet, Text, View} from 'react-native';
+import {ScrollView} from 'react-native-gesture-handler';
+import {heightPercentageToDP as hg} from 'react-native-responsive-screen';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import GoogleSVG from '../assets/images/icons/google-icon.svg';
-
-import {
-  widthPercentageToDP as wd,
-  heightPercentageToDP as hg,
-} from 'react-native-responsive-screen';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { ScrollView } from 'react-native-gesture-handler';
-import { TextGradient } from '../components/TextGradient';
-import { ButtonGradient } from '../components/ButtonGradient';
-import { TextInputGradient } from '../components/TextInputGradient';
+import LogoSVG from '../assets/images/refocus-center-logo.svg';
+import {ButtonGradient} from '../components/ButtonGradient';
+import {TextInputGradient} from '../components/TextInputGradient';
+import AuthContext from '../contexts/Auth';
+import {colors, fonts} from '../theme';
 
 export const style = StyleSheet.create({
   mainView: {
@@ -70,7 +62,7 @@ export const style = StyleSheet.create({
 });
 
 export default function Login() {
-  const { handleLogin } = useContext(AuthContext);
+  const {handleLogin} = useContext(AuthContext);
   const [credentials, setCredentials] = useState({
     email: '',
     password: '',
@@ -113,7 +105,6 @@ export default function Login() {
           <View style={style.flexView}>
             <GoogleSVG style={style.socialMediaIcon}></GoogleSVG>
           </View>
-
         </View>
       </ScrollView>
     </SafeAreaView>

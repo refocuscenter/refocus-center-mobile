@@ -1,9 +1,8 @@
-import {Gradient} from '../types/app/theme';
-import {colors, fonts} from '../theme';
 import React from 'react';
+import {StyleProp, Text, TextStyle} from 'react-native';
 import {LinearTextGradient} from 'react-native-text-gradient';
-import {Text} from 'react-native-paper';
-import {StyleProp, TextStyle} from 'react-native';
+import {colors, fonts} from '../theme';
+import {Gradient} from '../types/app/theme';
 
 export interface TextGradientProps {
   gradient?: Gradient;
@@ -16,7 +15,7 @@ export function TextGradient({
   gradient = colors.MainDegrade100,
   style,
   gradientStyle,
-  children
+  children,
 }: TextGradientProps) {
   return (
     <LinearTextGradient
@@ -25,7 +24,9 @@ export function TextGradient({
       colors={gradient.colors}
       start={gradient.start}
       end={gradient.end}>
-      <Text style={[{fontFamily: fonts.mainFontFamily, fontSize: 16}, style]}>{children}</Text>
+      <Text style={[{fontFamily: fonts.mainFontFamily, fontSize: 16}, style]}>
+        {children}
+      </Text>
     </LinearTextGradient>
   );
 }

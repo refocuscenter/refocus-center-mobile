@@ -1,8 +1,5 @@
 import React, {useContext} from 'react';
-import {View, ScrollView, Text, StyleSheet} from 'react-native';
-import {Avatar, Button} from 'react-native-paper';
-import {user} from '../../mocks/user';
-import {HighlightCarousel} from '../../components/shop/HightlightCarousel';
+import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import AuthContext from '../../contexts/Auth';
 
 const style = StyleSheet.create({
@@ -16,24 +13,7 @@ const style = StyleSheet.create({
     flexDirection: 'row',
     marginBottom: 15,
   },
-  exitView: {
-    flex: 1,
-    alignItems: 'flex-end',
-    textAlign: 'right',
-  },
-  exitButton: {
-    borderRadius: 50,
-  },
-  exitButtonContent: {},
-  exitButtonLabel: {
-    color: '#fff',
-  },
-  exitButtonIcon: {
-    color: '#fff',
-  },
-  textDisplayName: {
-    marginHorizontal: 15,
-  },
+
   title: {
     fontSize: 17,
     fontWeight: 'normal',
@@ -47,38 +27,16 @@ export interface HomeProps {
 
 export default function AppHome(props: HomeProps) {
   const {handleLogout} = useContext(AuthContext);
-  //TALVEZ USAR CONTEXTS PARA OS MOCKS
-
   return (
     <ScrollView
       style={style.mainView}
       showsVerticalScrollIndicator={false}
       showsHorizontalScrollIndicator={false}>
-      <View style={style.topView}>
-        <Avatar.Image
-          size={62}
-          source={{uri: user.profilePhoto}}></Avatar.Image>
-        <Text style={style.textDisplayName}>{user.displayName}</Text>
-
-        <View style={style.exitView}>
-          <Button
-            icon="arrow-left"
-            style={style.exitButton}
-            contentStyle={style.exitButtonContent}
-            labelStyle={style.exitButtonLabel}
-            mode="contained"
-            onPress={handleLogout}>
-            {/*<IconMaterialIcons style={style.exitButtonIcon} name="arrow-back" size={16}/>
-              <View style={{ width: 16, height: 1 }} />*/}
-            <Text>Sair</Text>
-          </Button>
-        </View>
-      </View>
+      <View style={style.topView}></View>
 
       <Text style={style.title}>Destaques</Text>
 
       <Text style={style.title}>Suas Lojas</Text>
-
     </ScrollView>
   );
 }
