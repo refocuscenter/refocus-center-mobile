@@ -60,6 +60,7 @@
       "jsx",
       "json",
       "node"
-    ]
+    ],
+    "testMatch": ["**/__tests__/**/*"]
   }
 }

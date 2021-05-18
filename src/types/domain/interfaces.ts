@@ -1,5 +1,4 @@
-import { XOR } from '../app/operators';
-import {Unit} from './enums';
+import {XOR} from '../app/operators';
 
 export interface User {
   id: number;
@@ -20,8 +19,13 @@ export interface Basket {
 }
 
 export interface BasketItem {
-  totalValue?: number;
+  // totalValue?: number;
   portion: Portion;
+}
+
+export interface Portion {
+  amount: number;
+  offer: OfferXorCombo;
 }
 
 /**
@@ -29,12 +33,14 @@ export interface BasketItem {
  * What is offered (service or product)
  */
 export interface Offer {
+  id: number;
   name: string;
   image: string;
   value: number;
 }
 
 export interface Combo<Offer> {
+  id: number;
   name: string;
   value: number;
   offers: Offer[];
@@ -43,11 +49,6 @@ export interface Combo<Offer> {
 export type OfferXorCombo = XOR<Offer, Combo<Offer>>;
 export type ProductXorCombo = XOR<Product, Combo<Product>>;
 export type ServiceXorCombo = XOR<Service, Combo<Service>>;
-
-export interface Portion {
-  amount: number;
-  offer: OfferXorCombo;
-}
 
 export interface Product extends Offer {}
 
@@ -62,8 +63,8 @@ export interface UnitStore {
   id: number;
   name?: string;
   image?: string;
-  // openingIntervals: WeekOpeningIntervals
   store: Store;
+  // openingIntervals: WeekOpeningIntervals
   // history: Extract[]
 }
 
@@ -74,6 +75,7 @@ export interface Store {
   image: string;
 }
 
+// ----------------------------------------
 export interface WeekOpeningIntervals {
   sunday: OpeningInterval;
   monday: OpeningInterval;

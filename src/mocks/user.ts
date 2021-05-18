@@ -31,19 +31,15 @@ export const user: User = {
       basket: {
         basketItems: [
           {
-            totalValue: 10,
             portion: {amount: 2, offer: kitCleanServicesOnly.LAVA_COM_PRODUTO},
           },
           {
-            totalValue: 10,
             portion: {amount: 2, offer: kitCleanAllServicesAndCombos[0]},
           },
           {
-            totalValue: 10,
             portion: {amount: 2, offer: kitCleanAllServicesAndCombos[1]},
           },
           {
-            totalValue: 10,
             portion: {amount: 2, offer: kitCleanServicesOnly.LAVA_SEM_PRODUTO},
           },
         ],

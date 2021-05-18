@@ -72,7 +72,7 @@ export default function ShopProfile(props: ShopProfileProps) {
       <CircleImage
         hasStatus={false}
         size={130}
-        uri={unitStore ? unitStore.store.image : ''}
+        uri={unitStore && unitStore.store.image}
       />
       <View style={style.balanceContainer}>
         <Text style={style.balanceText}>Seu saldo</Text>

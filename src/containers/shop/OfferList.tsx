@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   FlatList,
   FlatListProps,
@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import {BlankItem} from '../../components/shop/BlankItem';
 import {OfferItem} from '../../components/shop/OfferItem';
-import {useCreateBasketItem} from '../../hooks/basket';
+import {useBasketItem, useCreateBasketItem} from '../../hooks/basket';
 import {BasketItem, OfferXorCombo} from '../../types/domain/interfaces';
 
 const style = StyleSheet.create({
@@ -47,7 +47,7 @@ export function OfferList(props: OfferListProps) {
   );
 }
 
-function createItems(props: OfferListProps): OfferXorCombo[] {
+function createItems(props: OfferListProps): (OfferXorCombo | 'see-more')[] {
   const {offers, limit} = props;
 
   if (!offers) return [];
@@ -60,29 +60,48 @@ function createItems(props: OfferListProps): OfferXorCombo[] {
 function createRenderItem(props: OfferListProps) {
   const {seeMoreItemOnPress} = props;
 
-  function createInsertBasket(offer: OfferXorCombo) {
-    return function insert() {
+  function Item({item}: {item: OfferXorCombo | 'see-more'}) {
+    const offer = item as OfferXorCombo;
+
+    const {data, isSuccess} = useBasketItem(1, offer.id);
+
+    const amountState = useState(0);
+    const [_, setAmount] = amountState;
+
+    const {mutate} = useCreateBasketItem(1);
+
+    useEffect(() => {
+      if (isSuccess) {
+        setAmount(data ? data.portion.amount : 0);
+      }
+    }, [data]);
+
+    function insert(setAmount: Function) {
       const basketItem: BasketItem = {
         portion: {amount: 1, offer: offer},
-        totalValue: offer.value,
       };
-      useCreateBasketItem(1, basketItem);
-    };
-  }
 
-  return function renderItem({item}: {item: OfferXorCombo | 'see-more'}) {
+      mutate(basketItem);
+    }
+
     return item !== 'see-more' ? (
       <OfferItem
         containerStyle={style.item}
         offer={item as OfferXorCombo}
-        onIncreaseAmount={createInsertBasket(item)}
+        onIncreaseAmount={insert}
+        onDecreaseAmount={() => console.warn('D')}
+        amountState={amountState}
       />
     ) : (
       <BlankItem onPress={seeMoreItemOnPress} containerStyle={style.item}>
         Ver mais
       </BlankItem>
     );
-  };
+  }
+
+  return ({item}: {item: OfferXorCombo | 'see-more'}) => (
+    <Item item={item}></Item>
+  );
 }
 
 function limitItems(items: any[], limit?: number) {

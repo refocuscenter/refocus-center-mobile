@@ -61,8 +61,8 @@ export interface OfferItemProps extends ViewGradientProps {
   offer: OfferXorCombo;
   amountState?: [number, React.Dispatch<React.SetStateAction<number>>];
   iconButtonProps?: IconButtonProps;
-  onIncreaseAmount?: Function;
-  onDecreaseAmount?: Function;
+  onIncreaseAmount?: (setAmount: Function) => void;
+  onDecreaseAmount?: (setAmount: Function) => void;
 }
 
 function usePrevious(value: any) {
@@ -89,9 +89,13 @@ export function OfferItem(props: OfferItemProps) {
 
   useEffect(() => {
     if (previousAmount > amount) {
-      onDecreaseAmount && onDecreaseAmount();
+      if (onDecreaseAmount != undefined) {
+        onDecreaseAmount(setAmount);
+      }
     } else if (previousAmount < amount) {
-      onIncreaseAmount && onIncreaseAmount();
+      if (onIncreaseAmount != undefined) {
+        onIncreaseAmount(setAmount);
+      }
     }
   }, [amount]);
 

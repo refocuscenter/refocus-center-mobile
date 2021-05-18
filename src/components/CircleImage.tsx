@@ -30,7 +30,7 @@ const style = StyleSheet.create({
 
 export interface CircleImageProps {
   size: number;
-  uri: string;
+  uri?: string;
   hasStatus?: boolean;
   style?: StyleProp<ViewStyle>;
 }
@@ -40,7 +40,10 @@ export function CircleImage(props: CircleImageProps) {
 
   return (
     <View style={style.main}>
-      <Image style={[{width: size - 20, height: size - 20}, style.image]} source={{uri: uri}} />
+      <Image
+        style={[{width: size - 20, height: size - 20}, style.image]}
+        source={{uri: uri}}
+      />
       <View style={[{width: size - 5, height: size - 5}, style.midLayer]} />
       {!hasStatus ? (
         <View style={[{width: size, height: size}, style.status]} />

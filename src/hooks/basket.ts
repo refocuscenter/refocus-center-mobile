@@ -3,15 +3,24 @@ import {BasketStorage} from '../storage/BasketStorage';
 import {BasketItem} from '../types/domain/interfaces';
 
 export const useBaskets = (idUnitStore: number) => {
-  return useQuery([`baskets`], () => BasketStorage.findAll(idUnitStore));
+  return useQuery([`baskets-${idUnitStore}`], () =>
+    BasketStorage.findAll(idUnitStore),
+  );
 };
 
-export const useCreateBasketItem = (
-  idUnitStore: number,
-  basketItem: BasketItem,
-) => {
+export const useBasketItem = (idUnitStore: number, idOffer: number) => {
+  return useQuery([`basket-item`, idUnitStore, idOffer], () =>
+    BasketStorage.findOneItem(idUnitStore, idOffer),
+  );
+};
+
+export const useCreateBasketItem = (idUnitStore: number) => {
   const queryClient = useQueryClient();
-  return useMutation(() => BasketStorage.insertOne(idUnitStore, basketItem), {
-    onSuccess: () => queryClient.refetchQueries(`baskets`),
-  });
+  return useMutation(
+    (basketItem: BasketItem) =>
+      BasketStorage.insertOne(idUnitStore, basketItem),
+    {
+      onSuccess: () => queryClient.refetchQueries([`baskets-${idUnitStore}`]),
+    },
+  );
 };
