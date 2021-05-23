@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
+    "ambient": "npm i && npm i -g react-native jest eslint && git config --local include.path ../.gitconfig",
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "start": "react-native start",

@@ -1,15 +1,32 @@
-# refocus-center-mobile
+# Refocus Center Mobile
 
-App do consumidor
+Aplicativo do consumidor
 
-## Rodando a aplicação
+## Primeiros Passos
 
-1. Tenha o node 14+
+### 1. Verifique se a versão do Node é >= 14
+``` powershell
+$ node -v
+```
 
-2. npm install -g react-native jest eslint
+### 2. Configure o Ambiente
 
-3. npm install
+``` powershell
+$ npm run ambient
+# Esse comando instala as dependências locais e globais desse projeto.
+```
 
-4. npm run android
+### 3. Execute no Emulador
+``` powershell
+$ npm run android
+# É necessário ter o Android Studio ambientado
+```
+
+## Ambientando Android Studio para o React Native
+
+### Windows
+https://react-native.rocketseat.dev/android/windows
 
 
+### Linux
+https://react-native.rocketseat.dev/android/linux
